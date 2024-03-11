@@ -3,9 +3,10 @@ import { useEffect, useRef } from "react";
 interface VideoProps {
   isMuted: boolean;
   playFromStart: boolean;
+  onEnded: () => void;
 }
 
-export function Video({ isMuted = false }: VideoProps) {
+export function Video({ isMuted = false, onEnded }: VideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const playFromStart = () => {
@@ -30,10 +31,14 @@ export function Video({ isMuted = false }: VideoProps) {
       autoPlay
       muted={isMuted}
       preload="auto"
+      onEnded={onEnded}
     >
-      <source src="/videos/ep018.mp4" type="video/mp4" />
+      <source
+        src="https://ko7uxl8h2z5pmfxi.public.blob.vercel-storage.com/ep02-t9TlvFpSXZCNrg1zAa9c0vDucurG2Q.mp4"
+        type="video/mp4"
+      />
       <track
-        src="/videos/2_English.srt"
+        src="https://ko7uxl8h2z5pmfxi.public.blob.vercel-storage.com/ep02-jJBRZzYrZo357XEL9FPZNzkQNRXdQX.srt"
         kind="subtitles"
         srcLang="en"
         label="English"

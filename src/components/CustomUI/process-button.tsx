@@ -1,31 +1,21 @@
 "use client";
 
-// export default function ProcessButton({
-//   text,
-//   id,
-// }: {
-//   text: string;
-//   id: number;
-// }) {
-//   return (
-//     <p
-//       className="rounded-full px-6 py-2 border hover:border-gray-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-gray-300/50 cursor-pointer select-none"
-//       onClick={() => console.log(id)}
-//     >
-//       {text}
-//     </p>
-//   );
-// }
-
 interface ProcessButtonProps {
+  buttonID: number;
   text: string;
   onClick: () => void;
+  className: string;
 }
 
-export default function ProcessButton({ text, onClick }: ProcessButtonProps) {
+export default function ProcessButton({
+  buttonID,
+  text,
+  onClick,
+  className,
+}: ProcessButtonProps) {
   return (
     <button
-      className="rounded-full px-6 py-2 border hover:border-gray-300 hover:bg-gray-100 hover:shadow-lg hover:shadow-gray-300/50 cursor-pointer select-none"
+      className={`rounded-full px-6 py-2 border hover:border-gray-300 hover:shadow-lg hover:shadow-gray-300/50 cursor-pointer select-none ${className}`}
       onClick={onClick}
     >
       {text}
