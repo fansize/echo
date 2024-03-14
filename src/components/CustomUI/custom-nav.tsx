@@ -5,7 +5,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-export function Nav() {
+export default function Nav() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-[rgba(255,255,255,0.8)] backdrop-blur-md shadow-sm dark:bg-[rgba(26,32,44,0.9)]">
       <div className="container flex items-center justify-between h-14 px-4 md:px-6">

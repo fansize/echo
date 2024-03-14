@@ -1,100 +1,67 @@
 "use client";
 
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Toggle } from "@/components/ui/toggle";
-import { Button } from "@/components/ui/button";
-import { Eye, Languages, Send } from "lucide-react";
-import ProcessButton from "@/components/CustomUI/process-button";
-import { Video } from "@/components/CustomUI/custom-video";
-import { Nav } from "@/components/CustomUI/custom-nav";
+import { useEffect, useState } from "react";
+import { Caption } from "@/components/CustomUI/subtitle-panel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import VideoComponent from "@/components/CustomUI/custom-video";
+import Nav from "@/components/CustomUI/custom-nav";
+import SubtitlePanel from "@/components/CustomUI/subtitle-panel";
+import UploadVideo from "@/components/CustomUI/upload-video";
+import UploadSubtitle from "@/components/CustomUI/upload-subtitle";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {
-  const [stepNumber, setStepNumber] = useState(1);
+  const [selectedCaption, setSelectedCaption] = useState<Caption>();
+  const [videoUrl, setVideoUrl] = useState<string>("/videos/ep03.mp4");
+  const [subtitleUrl, setSubtitleUrl] = useState<string>("/videos/ep03.srt");
 
-  const buttons = [
-    { text: "1.Listen Original", id: 1 },
-    { text: "2.Echo", id: 2 },
-    { text: "3.Imitate", id: 3 },
-  ];
-
-  const [isSubtitleVisible, setSubtitleVisible] = useState(true);
-  const [isMuted, setMuted] = useState(false);
-  const [currentButton, setCurrentButton] = useState(1);
-  const [playFromStart, setPlayFromStart] = useState(true);
-
-  const toggleSubtitle = () => {
-    setSubtitleVisible(!isSubtitleVisible);
+  const handleVideoUpload = (url: string) => {
+    setVideoUrl(url);
   };
 
-  // 点击按钮选择第步骤
-  const handleButtonClick = (id: number): void => {
-    setStepNumber(id);
+  const handleSubtitleUpload = (url: string) => {
+    setSubtitleUrl(url);
   };
 
-  // 当视频播放完后，自动增加StepNumber,进行下一步
-  const handleVideoEnded = () => {
-    if (stepNumber < 3) {
-      setStepNumber(stepNumber + 1);
-    } else {
-      setStepNumber(1);
-    }
+  // todo: 无法直接获取本地同名字幕，可能需要通过 api 获取 Whisper 来实现
+  const FetchSubtitleUrl = () => {
+    const subtitleUrl = videoUrl.replace(/\.mp4$/, ".srt");
+    setSubtitleUrl(subtitleUrl);
   };
 
-  // 每当setpNumber改变时，都会触发useEffect, 从而改变isMuted的值
-  useEffect(() => {
-    if (stepNumber === 2) {
-      setMuted(true);
-    } else {
-      setMuted(false);
-    }
-    setPlayFromStart(true);
-  }, [stepNumber]);
+  const handlePlayClick = (caption: Caption) => {
+    setSelectedCaption(caption);
+  };
 
   return (
     <main className="flex flex-col items-center justify-between p-24 gap-10">
       <Nav />
-      <div className="p-6 border rounded-xl">
-        <div className="flex flex-wrap pb-4 gap-5 font-mono text-sm">
-          {buttons.map((button) => (
-            <div className="flex-grow items-center" key={button.id}>
-              <ProcessButton
-                buttonID={button.id}
-                text={button.text}
-                onClick={() => handleButtonClick(button.id)}
-                className={`${button.id === stepNumber ? "bg-blue-400" : ""}`}
+      <div className="flex flex-row">
+        <Tabs defaultValue="subtitle" className="w-[400px]">
+          <TabsList>
+            <TabsTrigger value="subtitle">Subtitle</TabsTrigger>
+            <TabsTrigger value="upload">Upload</TabsTrigger>
+            <TabsTrigger value="upload1">Upload1</TabsTrigger>
+          </TabsList>
+          <TabsContent value="subtitle">
+            <ScrollArea className="h-[700px] w-[350px] rounded-md border p-4">
+              <SubtitlePanel
+                subtitleUrl={subtitleUrl}
+                onPlayClick={handlePlayClick}
               />
-            </div>
-          ))}
-        </div>
-        <div className="rounded-xl overflow-hidden">
-          <Video
-            isMuted={isMuted}
-            playFromStart={playFromStart}
-            onEnded={handleVideoEnded}
-          />
-        </div>
-        <div className="flex pt-4 gap-2 items-center">
-          <Toggle
-            variant={"outline"}
-            size={"sm"}
-            aria-label="Toggle bold"
-            onClick={toggleSubtitle}
-          >
-            <Eye className="h-4 w-4" />
-          </Toggle>
-          <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
-            <Languages className="h-4 w-4" />
-          </Toggle>
-          {isSubtitleVisible && <p>I wanna play baseball.</p>}
-        </div>
-        <div className="flex pt-4 gap-2 items-center">
-          <Input />
-          <Button variant={"outline"} aria-label="Toggle bold">
-            <Send className="h-5 w-5" />
-          </Button>
-        </div>
+            </ScrollArea>
+          </TabsContent>
+          <TabsContent value="upload">
+            <p>Upload Video</p>
+            <UploadVideo onFileSelected={handleVideoUpload} />
+          </TabsContent>
+          <TabsContent value="upload1">
+            <p>Upload Subtitle</p>
+            <UploadSubtitle onFileSelected={handleSubtitleUpload} />
+          </TabsContent>
+        </Tabs>
+
+        <VideoComponent caption={selectedCaption} uploadVideoUrl={videoUrl} />
       </div>
     </main>
   );
