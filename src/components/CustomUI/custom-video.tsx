@@ -55,7 +55,7 @@ export default function VideoComponent({
         videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
       }
     },
-    [videoRef]
+    [videoRef, stepNumber]
   );
 
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
@@ -96,7 +96,7 @@ export default function VideoComponent({
     } else {
       setMuted(false);
     }
-  }, [uploadVideoUrl, caption, stepNumber]);
+  }, [uploadVideoUrl, caption, stepNumber, oncePlay]);
 
   return (
     <div>
