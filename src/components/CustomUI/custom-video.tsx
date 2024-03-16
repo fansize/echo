@@ -100,7 +100,7 @@ export default function VideoComponent({
 
   return (
     <div>
-      <div className="p-6 border rounded-xl">
+      <div className="p-6 border rounded-xl aspect-square">
         <div className="flex flex-wrap pb-4 gap-5 font-mono text-sm">
           {buttons.map((button) => (
             <div className="items-center" key={button.id}>
@@ -116,7 +116,7 @@ export default function VideoComponent({
         <div className="rounded-xl overflow-hidden">
           <video
             ref={videoRef}
-            width="1080"
+            width="600"
             height="240"
             controls
             // autoPlay
