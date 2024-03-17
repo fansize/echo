@@ -34,17 +34,20 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-between p-24 gap-10">
+    <main className="flex justify-center pt-20 px-4">
       <Nav />
-      <div className="flex flex-row">
-        <Tabs defaultValue="subtitle" className="w-[400px]">
+      <div className="flex gap-9">
+        <Tabs
+          defaultValue="subtitle"
+          className="h-[calc(100vh-10rem)] w-[600px]"
+        >
           <TabsList>
-            <TabsTrigger value="subtitle">Subtitle</TabsTrigger>
-            <TabsTrigger value="upload">Upload</TabsTrigger>
-            <TabsTrigger value="upload1">Upload1</TabsTrigger>
+            <TabsTrigger value="subtitle">Captions</TabsTrigger>
+            <TabsTrigger value="upload">Video</TabsTrigger>
+            <TabsTrigger value="upload1">Subtitle</TabsTrigger>
           </TabsList>
           <TabsContent value="subtitle">
-            <ScrollArea className="h-[700px] w-[350px] rounded-md border p-4">
+            <ScrollArea className="h-[calc(100vh-10rem)]">
               <SubtitlePanel
                 subtitleUrl={subtitleUrl}
                 onPlayClick={handlePlayClick}
@@ -61,7 +64,9 @@ export default function Home() {
           </TabsContent>
         </Tabs>
 
-        <VideoComponent caption={selectedCaption} uploadVideoUrl={videoUrl} />
+        <div>
+          <VideoComponent caption={selectedCaption} uploadVideoUrl={videoUrl} />
+        </div>
       </div>
     </main>
   );

@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Input } from "@/components/ui/input";
+
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
-import { Eye, Languages, Send } from "lucide-react";
+import { Eye, Languages, RefreshCcw } from "lucide-react";
 import ProcessButton from "@/components/CustomUI/process-button";
+import InputCheck from "@/components/CustomUI/custom-input";
 import { Caption } from "@/components/CustomUI/subtitle-panel";
-import { once } from "events";
 
 type VideoProps = {
   caption?: Caption;
@@ -20,11 +20,13 @@ export default function VideoComponent({
 }: VideoProps) {
   const [stepNumber, setStepNumber] = useState(1);
   const buttons = [
-    { text: "1.Listen Original", id: 1 },
-    { text: "2.Echo", id: 2 },
-    { text: "3.Imitate", id: 3 },
+    { text: "听原声", id: 1 },
+    { text: "静音模仿", id: 2 },
+    { text: "同步读x1", id: 3 },
+    { text: "同步读x2", id: 4 },
   ];
 
+  const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
   const [isMuted, setMuted] = useState(false);
 
@@ -38,24 +40,27 @@ export default function VideoComponent({
     setStepNumber(id);
   };
 
-
   const videoRef = useRef<HTMLVideoElement>(null);
   // 确定视频播放时间区间
   const [startTime, setStartTime] = useState<number>(0);
   // 播放次数
-  const [playCount, setPlayCount] = useState<number>(0);
+  const [playCount, setPlayCount] = useState<number>(1);
 
   const handleCaptionClick = () => {
     setPlayCount(playCount + 1);
   };
 
   // 单次播放函数
-  const playFromStartToEnd = (start: number, end: number, callback?: () => void) => {
+  const playFromStartToEnd = (
+    start: number,
+    end: number,
+    callback?: () => void
+  ) => {
     if (videoRef.current) {
       videoRef.current.currentTime = start;
       videoRef.current.play();
 
-      setStepNumber(prevStepNumber => prevStepNumber + 1);
+      setStepNumber((prevStepNumber) => prevStepNumber + 1);
 
       const handleTimeUpdate = () => {
         if (videoRef.current && videoRef.current.currentTime >= end) {
@@ -79,128 +84,119 @@ export default function VideoComponent({
       setStepNumber(0);
       const start = convertTimeToSeconds(caption.start);
       const end = convertTimeToSeconds(caption.end);
+      const duration = end - start;
 
       if (videoRef.current) {
         playFromStartToEnd(start, end, () => {
+          // 播放原视频后隐藏视频
+          setShowVideo(false);
           // 通过callback函数，间隔播放视频
           setTimeout(() => {
+            setShowVideo(true);
+            setMuted(true);
             playFromStartToEnd(start, end, () => {
               setTimeout(() => {
-                playFromStartToEnd(start, end);
+                setMuted(false);
+                playFromStartToEnd(start, end, () => {
+                  setTimeout(() => {
+                    playFromStartToEnd(start, end);
+                  }, 0);
+                });
               }, 0);
             });
-          }, 2000);
+          }, duration * 1000);
         });
       }
     },
     [videoRef]
   );
 
-  // 播放一次
-  const oncePlay = useCallback(
-    (caption: Caption) => {
-      const start = convertTimeToSeconds(caption.start);
-      const end = convertTimeToSeconds(caption.end);
-
-      console.log(`Start: ${start}, End: ${end}`);
-
-      if (videoRef.current) {
-        videoRef.current.currentTime = start;
-        videoRef.current.play();
-
-        const handleTimeUpdate = () => {
-          if (videoRef.current && videoRef.current.currentTime >= end) {
-            console.log("handleTimeUpdate:", videoRef.current.currentTime);
-            videoRef.current.pause();
-            videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
-          }
-        };
-
-        const handleSeeked = () => {
-          if (videoRef.current) {
-            console.log("handleSeeked:", videoRef.current.currentTime);
-            videoRef.current.removeEventListener("seeked", handleSeeked);
-          }
-        };
-
-        videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
-        videoRef.current.addEventListener("seeked", handleSeeked);
-      }
-    },
-    [videoRef]
-  );
-
-
   // 每当setpNumber改变时，都会触发useEffect, 从而改变isMuted的值
   useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
     if (caption) {
       echoPlay(caption);
     }
   }, [uploadVideoUrl, caption, echoPlay, playCount]);
 
   return (
-    <div>
-      <div className="p-6 border rounded-xl aspect-square">
-        <div className="flex flex-wrap pb-4 gap-5 font-mono text-sm">
+    <div className="p-6 border rounded-xl w-[650px]">
+      <div className="rounded-xl overflow-hidden">
+        <div style={{ position: "relative" }}>
+          <video
+            ref={videoRef}
+            width="650"
+            height="360"
+            // controls   // 显示播放器的控制按钮
+            // autoPlay   // 加载页面后自动开始播放
+            muted={isMuted}
+            preload="auto"
+          >
+            <source src={uploadVideoUrl} type="video/mp4" />
+          </video>
+          {!showVideo && (
+            <div className="absolute inset-0 bg-black flex justify-center items-center">
+              <p className="text-lg text-white">...</p>
+            </div>
+          )}
+          {isSubtitleVisible && showVideo && (
+            <div className="absolute bottom-5 inset-x-0 flex items-center justify-center">
+              <p className=" pl-2 text-2xl text-amber-500">{caption?.text}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="flex justify-center">
+        <div className="flex pt-5 gap-4 font-mono text-sm">
           {buttons.map((button) => (
             <div className="items-center" key={button.id}>
               <ProcessButton
                 buttonID={button.id}
                 text={button.text}
                 onClick={() => handleButtonClick(button.id)}
-                className={`${button.id === stepNumber ? "bg-blue-400" : ""}`}
+                className={`${
+                  button.id === stepNumber ? "bg-amber-500 font-bold" : ""
+                }`}
               />
             </div>
           ))}
-          <Button onClick={handleCaptionClick}>Repeat</Button>
-          <p>{playCount}</p>
-        </div>
-        <div className="rounded-xl overflow-hidden">
-          <video
-            ref={videoRef}
-            width="600"
-            height="240"
-            // controls   // 显示播放器的控制按钮
-            // autoPlay   // 加载页面后自动开始播放
-            muted={isMuted}
-            preload="auto"
-          // onEnded={handleVideoEnded}
-          // onTimeUpdate={handleTimeUpdate}
-          >
-            <source src={uploadVideoUrl || ""} type="video/mp4" />
-          </video>
-        </div>
-        <div className="flex pt-4 gap-2 items-center">
-          <Toggle
-            variant={"outline"}
-            size={"sm"}
-            aria-label="Toggle bold"
-            onClick={toggleSubtitle}
-          >
-            <Eye className="h-4 w-4" />
-          </Toggle>
-          <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
-            <Languages className="h-4 w-4" />
-          </Toggle>
-          {isSubtitleVisible && <p>{caption?.text}</p>}
-          {startTime}
-        </div>
-        <div className="flex pt-4 gap-2 items-center">
-          <Input />
-          <Button variant={"outline"} aria-label="Toggle bold">
-            <Send className="h-5 w-5" />
-          </Button>
         </div>
       </div>
+      {/* <div className="flex pt-5 gap-2 items-center">
+        <Toggle
+          variant={"outline"}
+          size={"sm"}
+          aria-label="Toggle bold"
+          onClick={toggleSubtitle}
+        >
+          <Eye className="h-4 w-4" />
+        </Toggle>
+        <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
+          <Languages className="h-4 w-4" />
+        </Toggle>
+      </div> */}
+      {/* <div>
+        <div className="flex items-center justify-center text-sm gap-2">
+          <p>{playCount}</p>
+          <Button onClick={handleCaptionClick} size={"sm"}>
+            <RefreshCcw size={18} />
+          </Button>
+        </div>
+        <InputCheck />
+      </div> */}
     </div>
   );
+}
 
-  function convertTimeToSeconds(time: string) {
-    const parts = time.split(":");
-    const hours = parseInt(parts[0], 10);
-    const minutes = parseInt(parts[1], 10);
-    const seconds = parseFloat(parts[2].replace(",", "."));
+// 将时间转换为秒
+function convertTimeToSeconds(time: string) {
+  const parts = time.split(":");
+  const hours = parseInt(parts[0], 10);
+  const minutes = parseInt(parts[1], 10);
+  const seconds = parseFloat(parts[2].replace(",", "."));
 
-    return hours * 3600 + minutes * 60 + seconds;
-  }
+  return hours * 3600 + minutes * 60 + seconds;
 }

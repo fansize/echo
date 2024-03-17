@@ -15,7 +15,7 @@ export default function ProcessButton({
 }: ProcessButtonProps) {
   return (
     <button
-      className={`rounded-full px-6 py-2 border hover:border-gray-300 hover:shadow-lg hover:shadow-gray-300/50 cursor-pointer select-none ${className}`}
+      className={`tracking-wide rounded-full px-6 py-2 border hover:border-gray-300 hover:shadow-lg hover:shadow-gray-300/50 cursor-pointer select-none ${className}`}
       onClick={onClick}
     >
       {text}

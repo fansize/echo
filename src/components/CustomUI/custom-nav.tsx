@@ -4,13 +4,14 @@
  */
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import ModeToggle from "@/components/theme/toggle-theme-button";
 
 export default function Nav() {
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-[rgba(255,255,255,0.8)] backdrop-blur-md shadow-sm dark:bg-[rgba(26,32,44,0.9)]">
       <div className="container flex items-center justify-between h-14 px-4 md:px-6">
         <Link className="font-semibold" href="#">
-          Acme Inc
+          The Echo Learning
         </Link>
         <nav className="hidden space-x-2 md:flex">
           <Link
@@ -29,13 +30,13 @@ export default function Nav() {
             className="inline-flex h-8 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
             href="#"
           >
-            Pricing
+            Wiki
           </Link>
           <Link
             className="inline-flex h-8 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
             href="#"
           >
-            Contact
+            Pricing
           </Link>
         </nav>
         <div className="flex md:hidden">
@@ -45,8 +46,10 @@ export default function Nav() {
           </Button>
         </div>
         <div className="hidden md:flex items-center space-x-4">
-          <Button size="sm">Sign in</Button>
-          <Button size="sm">Sign up</Button>
+          <Button variant={"outline"} size="default">
+            Sign in
+          </Button>
+          <ModeToggle />
         </div>
       </div>
     </nav>

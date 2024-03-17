@@ -76,24 +76,27 @@ export default function SubtitlePanel({
 
   return (
     <div>
-      <div className="flex-col py-8">
+      <div className="flex flex-col gap-4">
         {captions.map((caption, index) => (
-          <div className="py-2" key={index}>
-            <Card>
-              <div className="flex-row gap-4 py-4 px-6">
-                <p className="text-base font-bold">{caption.text}</p>
-                <p className="text-sm italic text-slate-500 pt-2">
-                  {caption.start} - {caption.end}
-                </p>
-                <Button
-                  variant={"outline"}
-                  aria-label="Toggle bold"
-                  onClick={() => onPlayClick(caption)}
-                >
-                  <Airplay size={12} />
-                </Button>
-              </div>
-            </Card>
+          <div className="" key={index}>
+            <div className="flex flex-row">
+              <p
+                className="inline-flex items-center justify-center rounded-sm text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                onClick={() => onPlayClick(caption)}
+              >
+                {caption.text}
+              </p>
+              {/* <p className="text-sm italic text-slate-500 pt-2">
+                {caption.start} - {caption.end}
+              </p>
+              <Button
+                variant={"outline"}
+                aria-label="Toggle bold"
+                onClick={() => onPlayClick(caption)}
+              >
+                <Airplay size={12} />
+              </Button> */}
+            </div>
           </div>
         ))}
       </div>
