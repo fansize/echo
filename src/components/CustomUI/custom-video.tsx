@@ -5,16 +5,18 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
 import { Eye, Languages, RefreshCcw } from "lucide-react";
-import { Caption } from "@/components/CustomUI/subtitle-panel";
+import { Caption } from "@/lib/parse-subtitles";
 import ProcessButton from "@/components/CustomUI/process-button";
 
 type VideoProps = {
   caption?: Caption;
+  autoNextCaption: (direction: "previous" | "next") => void;
   uploadVideoUrl: string;
 };
 
 export default function VideoComponent({
   caption,
+  autoNextCaption,
   uploadVideoUrl,
 }: VideoProps) {
   const [stepNumber, setStepNumber] = useState(1);
@@ -39,13 +41,14 @@ export default function VideoComponent({
     setStepNumber(id);
   };
 
+  // 视频引用
   const videoRef = useRef<HTMLVideoElement>(null);
-  // 确定视频播放时间区间
-  const [startTime, setStartTime] = useState<number>(0);
-  // 播放次数
+
+  // 重复播放次数
   const [playCount, setPlayCount] = useState<number>(1);
 
-  const handleCaptionClick = () => {
+  // 重复播放
+  const handleRepeatClick = () => {
     setPlayCount(playCount + 1);
   };
 
@@ -147,8 +150,11 @@ export default function VideoComponent({
 
   useEffect(() => {
     // 选择视频后立即加载视频
-    let cancelEchoPlay: () => void;
+    if (videoRef.current) {
+      videoRef.current.load();
+    }
 
+    let cancelEchoPlay: () => void;
     if (caption) {
       cancelEchoPlay = echoPlay(caption);
     }
@@ -181,8 +187,10 @@ export default function VideoComponent({
             </div>
           )}
           {isSubtitleVisible && showVideo && (
-            <div className="absolute bottom-5 inset-x-0 flex items-center justify-center">
-              <p className=" pl-2 text-2xl text-amber-500">{caption?.text}</p>
+            <div className="absolute bottom-5 px-2 inset-x-0 flex items-center justify-center">
+              <p className="text-2xl px-3 py-1 text-amber-500 bg-black/75 rounded-sm">
+                {caption?.text}
+              </p>
             </div>
           )}
         </div>
