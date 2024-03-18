@@ -1,10 +1,8 @@
 1
 00:00:00,033 --> 00:00:01,933
 I'm going to take apart the refrigerator
-我要把冰箱拆了
 
 2
 00:00:02,033 --> 00:00:03,966
 and figure out what's making that noise.
-找到是什么发出的噪音.
 

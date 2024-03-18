@@ -5,9 +5,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
 import { Eye, Languages, RefreshCcw } from "lucide-react";
-import ProcessButton from "@/components/CustomUI/process-button";
-import InputCheck from "@/components/CustomUI/custom-input";
 import { Caption } from "@/components/CustomUI/subtitle-panel";
+import ProcessButton from "@/components/CustomUI/process-button";
 
 type VideoProps = {
   caption?: Caption;
@@ -62,6 +61,7 @@ export default function VideoComponent({
 
       setStepNumber((prevStepNumber) => prevStepNumber + 1);
 
+      // 监听视频播放时间，当播放到指定时间后，暂停视频
       const handleTimeUpdate = () => {
         if (videoRef.current && videoRef.current.currentTime >= end) {
           videoRef.current.pause();
@@ -74,51 +74,90 @@ export default function VideoComponent({
           }
         }
       };
+
+      // 监听中断事件
+      const handleInterrupt = () => {
+        if (videoRef.current) {
+          console.log("interrupt");
+          videoRef.current.pause();
+          videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
+          videoRef.current.removeEventListener("interrupt", handleInterrupt);
+        }
+      };
+
       videoRef.current.addEventListener("timeupdate", handleTimeUpdate);
+      videoRef.current.addEventListener("interrupt", handleInterrupt);
     }
   };
 
   // 回音法播放
   const echoPlay = useCallback(
     (caption: Caption) => {
+      // 初始化播放器参数
       setStepNumber(0);
+      setShowVideo(true);
+      setMuted(false);
+
       const start = convertTimeToSeconds(caption.start);
       const end = convertTimeToSeconds(caption.end);
       const duration = end - start;
+
+      let timeouts: NodeJS.Timeout[] = [];
 
       if (videoRef.current) {
         playFromStartToEnd(start, end, () => {
           // 播放原视频后隐藏视频
           setShowVideo(false);
           // 通过callback函数，间隔播放视频
-          setTimeout(() => {
-            setShowVideo(true);
-            setMuted(true);
-            playFromStartToEnd(start, end, () => {
-              setTimeout(() => {
-                setMuted(false);
-                playFromStartToEnd(start, end, () => {
+          timeouts.push(
+            setTimeout(() => {
+              setShowVideo(true);
+              setMuted(true);
+              playFromStartToEnd(start, end, () => {
+                timeouts.push(
                   setTimeout(() => {
-                    playFromStartToEnd(start, end);
-                  }, 0);
-                });
-              }, 0);
-            });
-          }, duration * 1000);
+                    setMuted(false);
+                    playFromStartToEnd(start, end, () => {
+                      timeouts.push(
+                        setTimeout(() => {
+                          playFromStartToEnd(start, end);
+                        }, 0)
+                      );
+                    });
+                  }, 0)
+                );
+              });
+            }, duration * 1000)
+          );
         });
       }
+
+      // 当函数取消时，返回一个清理函数
+      return () => {
+        // 清除所有计时器
+        timeouts.forEach(clearTimeout);
+        // 触发中断事件
+        if (videoRef.current) {
+          videoRef.current.dispatchEvent(new Event("interrupt"));
+        }
+      };
     },
     [videoRef]
   );
 
-  // 每当setpNumber改变时，都会触发useEffect, 从而改变isMuted的值
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load();
-    }
+    // 选择视频后立即加载视频
+    let cancelEchoPlay: () => void;
+
     if (caption) {
-      echoPlay(caption);
+      cancelEchoPlay = echoPlay(caption);
     }
+
+    return () => {
+      if (cancelEchoPlay) {
+        cancelEchoPlay();
+      }
+    };
   }, [uploadVideoUrl, caption, echoPlay, playCount]);
 
   return (
@@ -177,15 +216,6 @@ export default function VideoComponent({
         <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
           <Languages className="h-4 w-4" />
         </Toggle>
-      </div> */}
-      {/* <div>
-        <div className="flex items-center justify-center text-sm gap-2">
-          <p>{playCount}</p>
-          <Button onClick={handleCaptionClick} size={"sm"}>
-            <RefreshCcw size={18} />
-          </Button>
-        </div>
-        <InputCheck />
       </div> */}
     </div>
   );
