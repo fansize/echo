@@ -27,6 +27,8 @@ export default function Home() {
   const [videoUrl, setVideoUrl] = useState<string>("/videos/ep03.mp4");
   const [subtitleUrl, setSubtitleUrl] = useState<string>("/videos/ep03.srt");
 
+  const [autoNumber, setAutoNumber] = useState(0);
+
   // 上传视频
   const handleVideoUpload = (url: string) => {
     setVideoUrl(url);
@@ -41,6 +43,12 @@ export default function Home() {
   const FetchSubtitleUrl = () => {
     const subtitleUrl = videoUrl.replace(/\.mp4$/, ".srt");
     setSubtitleUrl(subtitleUrl);
+  };
+
+  // 自动播放下一条字幕
+  const autoNextCaption = () => {
+    // 没触发一次函数，autoNumber + 1
+    setAutoNumber((prevautopNumber) => prevautopNumber + 1);
   };
 
   // 切换字幕
@@ -75,6 +83,10 @@ export default function Home() {
       setCaptions(captions);
     });
   }, [subtitleUrl]);
+
+  useEffect(() => {
+    handleSwitchCaption("next");
+  }, [autoNumber]);
 
   return (
     <main className="flex justify-center pt-20 px-4">
@@ -111,21 +123,16 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           <VideoComponent
             caption={selectedCaption}
-            autoNextCaption={handleSwitchCaption}
+            autoNextCaption={autoNextCaption}
             uploadVideoUrl={videoUrl}
           />
-          <Pagination>
+          <Pagination className="pt-9">
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
                   href="#"
                   onClick={() => handleSwitchCaption("previous")}
                 />
-              </PaginationItem>
-              <PaginationItem>
-                <PaginationLink href="#">
-                  <RefreshCcw size={16} />
-                </PaginationLink>
               </PaginationItem>
               <PaginationItem>
                 <PaginationNext

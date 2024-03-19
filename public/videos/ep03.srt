@@ -1,8 +1,12 @@
 1
-00:00:00,033 --> 00:00:01,933
-I'm going to take apart the refrigerator
+00:00:00,033 --> 00:00:00,933
+I'm going to take 
 
 2
+00:00:01,000 --> 00:00:01,933
+apart the refrigerator
+
+3
 00:00:02,033 --> 00:00:03,966
 and figure out what's making that noise.
 

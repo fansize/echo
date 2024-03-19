@@ -1,16 +1,25 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, use } from "react";
 
+import { Caption } from "@/lib/parse-subtitles";
+
+import { Eye, Languages, ListRestart, Settings } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { Button } from "@/components/ui/button";
-import { Eye, Languages, RefreshCcw } from "lucide-react";
-import { Caption } from "@/lib/parse-subtitles";
 import ProcessButton from "@/components/CustomUI/process-button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 type VideoProps = {
   caption?: Caption;
-  autoNextCaption: (direction: "previous" | "next") => void;
+  autoNextCaption: () => void;
   uploadVideoUrl: string;
 };
 
@@ -30,10 +39,16 @@ export default function VideoComponent({
   const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
   const [isMuted, setMuted] = useState(false);
+  const [autoNext, setAutoNext] = useState(false);
 
   // 隐藏或显示字幕
   const toggleSubtitle = () => {
     setSubtitleVisible(!isSubtitleVisible);
+  };
+
+  // 开启或关闭自动播放
+  const toggleAutoNext = () => {
+    setAutoNext(!autoNext);
   };
 
   // 点击按钮选择第步骤
@@ -81,7 +96,7 @@ export default function VideoComponent({
       // 监听中断事件
       const handleInterrupt = () => {
         if (videoRef.current) {
-          console.log("interrupt");
+          // console.log("interrupt");
           videoRef.current.pause();
           videoRef.current.removeEventListener("timeupdate", handleTimeUpdate);
           videoRef.current.removeEventListener("interrupt", handleInterrupt);
@@ -123,7 +138,12 @@ export default function VideoComponent({
                     playFromStartToEnd(start, end, () => {
                       timeouts.push(
                         setTimeout(() => {
-                          playFromStartToEnd(start, end);
+                          playFromStartToEnd(start, end, () => {
+                            // console.log("end");
+                            if (autoNext) {
+                              autoNextCaption();
+                            }
+                          });
                         }, 0)
                       );
                     });
@@ -145,7 +165,7 @@ export default function VideoComponent({
         }
       };
     },
-    [videoRef]
+    [videoRef, autoNext]
   );
 
   useEffect(() => {
@@ -167,13 +187,13 @@ export default function VideoComponent({
   }, [uploadVideoUrl, caption, echoPlay, playCount]);
 
   return (
-    <div className="p-6 border rounded-xl w-[650px]">
+    <div className="p-6 border rounded-xl">
       <div className="rounded-xl overflow-hidden">
         <div style={{ position: "relative" }}>
           <video
             ref={videoRef}
-            width="650"
-            height="360"
+            width="850"
+            height="478"
             // controls   // 显示播放器的控制按钮
             // autoPlay   // 加载页面后自动开始播放
             muted={isMuted}
@@ -186,18 +206,21 @@ export default function VideoComponent({
               <p className="text-lg text-white">...</p>
             </div>
           )}
-          {isSubtitleVisible && showVideo && (
+          {isSubtitleVisible && showVideo && caption && (
             <div className="absolute bottom-5 px-2 inset-x-0 flex items-center justify-center">
               <p className="text-2xl px-3 py-1 text-amber-500 bg-black/75 rounded-sm">
-                {caption?.text}
+                {caption.text}
               </p>
             </div>
           )}
         </div>
       </div>
 
-      <div className="flex justify-center">
-        <div className="flex pt-5 gap-4 font-mono text-sm">
+      <div className="flex justify-between items-center pt-5">
+        <Button variant="ghost">
+          {/* <Settings className="h-4 w-4" /> */}
+        </Button>
+        <div className="flex gap-4 font-mono text-sm">
           {buttons.map((button) => (
             <div className="items-center" key={button.id}>
               <ProcessButton
@@ -211,6 +234,30 @@ export default function VideoComponent({
             </div>
           ))}
         </div>
+
+        <div className="flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost">
+                {/* <Settings className="h-4 w-4" /> */}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-26">
+              <DropdownMenuCheckboxItem
+                checked={isSubtitleVisible}
+                onCheckedChange={setSubtitleVisible}
+              >
+                Subtitle Visible
+              </DropdownMenuCheckboxItem>
+              <DropdownMenuCheckboxItem
+                checked={autoNext}
+                onCheckedChange={toggleAutoNext}
+              >
+                AutoNext
+              </DropdownMenuCheckboxItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       {/* <div className="flex pt-5 gap-2 items-center">
         <Toggle
@@ -223,6 +270,14 @@ export default function VideoComponent({
         </Toggle>
         <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
           <Languages className="h-4 w-4" />
+        </Toggle>
+        <Toggle
+          variant={"outline"}
+          size={"sm"}
+          aria-label="Toggle bold"
+          onClick={toggleAutoNext}
+        >
+          <ListRestart className="h-4 w-4" />
         </Toggle>
       </div> */}
     </div>
