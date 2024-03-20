@@ -14,12 +14,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ParseSubtitles } from "@/lib/parse-caption";
 import SwitchCaption from "@/components/CustomUI/custom-pagination";
 import { getCaptionByUrl, getEpisodeBySlug } from "@/lib/api";
-
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
+import Container from "@/components/CustomUI/container";
+import Background from "@/components/CustomUI/background";
 import BackButton from "@/components/CustomUI/back-button";
 
 // 从父页面通过 Router URL 中获取 slug
@@ -85,29 +81,32 @@ export default function EpisodePage({ params }: Params) {
 
   return (
     <main>
-      <div className="mt-4">
-        <BackButton title={episode.title} />
-      </div>
-      <div className="flex flex-col md:flex-row gap-4 mt-4">
-        <div className="flex flex-col content-start h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md p-8">
-          <ScrollArea className="">
-            <CaptionPanel
-              captions={captions}
-              selectedCaption={selectedCaption}
-              onPlayClick={handlePlayClick}
-            />
-          </ScrollArea>
+      <Background />
+      <Container>
+        <div className="mt-4">
+          <BackButton title={episode.title} />
         </div>
+        <div className="flex flex-col md:flex-row gap-4 mt-4">
+          <div className="flex flex-col content-start h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md p-8">
+            <ScrollArea className="">
+              <CaptionPanel
+                captions={captions}
+                selectedCaption={selectedCaption}
+                onPlayClick={handlePlayClick}
+              />
+            </ScrollArea>
+          </div>
 
-        <div className="flex flex-col bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md p-8">
-          <Video
-            caption={selectedCaption}
-            autoNextCaption={autoNextCaption}
-            onClickSwitch={handleSwitchCaption}
-            uploadVideoUrl={episode?.videoSrc}
-          />
+          <div className="flex flex-col bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md p-8">
+            <Video
+              caption={selectedCaption}
+              autoNextCaption={autoNextCaption}
+              onClickSwitch={handleSwitchCaption}
+              uploadVideoUrl={episode?.videoSrc}
+            />
+          </div>
         </div>
-      </div>
+      </Container>
     </main>
   );
 }

@@ -10,7 +10,7 @@ export default function Nav() {
   return (
     <nav className="px-4 sm:px-6 lg:px-8 bg-[rgba(255,255,255,0.8)] backdrop-blur-md shadow-sm dark:bg-[rgba(26,32,44,0.9)]">
       <div className="container flex items-center justify-between h-14 px-4 md:px-6">
-        <Link className="font-semibold" href="#">
+        <Link className="font-semibold" href="/">
           The Echo Learning
         </Link>
         <nav className="hidden space-x-2 md:flex">

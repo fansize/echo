@@ -23,7 +23,8 @@ export default function RootLayout({
       <body className={`${inter.className} bg-gray-50 dark:bg-black`}>
         <ThemeProvider attribute="class" defaultTheme="system">
           <Nav />
-          <Container>{children}</Container>
+          {/* <Container></Container> */}
+          {children}
         </ThemeProvider>
         <Analytics />
       </body>
