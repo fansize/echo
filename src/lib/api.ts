@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
 import { mockEpisodes } from "@/lib/data";
@@ -5,6 +6,10 @@ import { mockEpisodes } from "@/lib/data";
 // 根据 slug 获取单个 episode
 export function getEpisodeBySlug(slug: string) {
   const episode = mockEpisodes.find((episode) => episode.slug === slug);
+  // 如果获取不到就返回404页面
+  if (!episode) {
+    return notFound();
+  }
   return episode;
 }
 

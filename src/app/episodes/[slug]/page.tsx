@@ -33,11 +33,6 @@ export default function EpisodePage({ params }: Params) {
   // 根据 slug 获取单个 episode
   const episode = getEpisodeBySlug(params.slug);
 
-  // 如果没有找到对应的 episode，返回 404 页面
-  if (!episode) {
-    return notFound();
-  }
-
   // 设定页面各种初始参数
   const [captions, setCaptions] = useState<Caption[]>([]);
   const [selectedCaption, setSelectedCaption] = useState<Caption>();
@@ -94,7 +89,7 @@ export default function EpisodePage({ params }: Params) {
         <BackButton title={episode.title} />
       </div>
       <div className="flex flex-col md:flex-row gap-4 mt-4">
-        <div className="flex flex-col content-start h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white rounded-lg shadow-md p-8">
+        <div className="flex flex-col content-start h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md p-8">
           <ScrollArea className="">
             <CaptionPanel
               captions={captions}
@@ -104,7 +99,7 @@ export default function EpisodePage({ params }: Params) {
           </ScrollArea>
         </div>
 
-        <div className="flex flex-col bg-white rounded-lg md:w-2/3 shadow-md p-8">
+        <div className="flex flex-col bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md p-8">
           <Video
             caption={selectedCaption}
             autoNextCaption={autoNextCaption}
