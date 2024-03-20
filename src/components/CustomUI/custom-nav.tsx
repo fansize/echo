@@ -8,15 +8,15 @@ import ModeToggle from "@/components/theme/toggle-theme-button";
 
 export default function Nav() {
   return (
-    <nav className="px-4 sm:px-6 lg:px-8 bg-[rgba(255,255,255,0.8)] backdrop-blur-md shadow-sm dark:bg-[rgba(26,32,44,0.9)]">
-      <div className="container flex items-center justify-between h-14 px-4 md:px-6">
+    <nav className="px-8 backdrop-blur-md shadow-sm bg-[rgba(255,255,255,0.8)] dark:bg-[rgba(26,32,44,0.9)]">
+      <div className="flex items-center justify-between h-14 mx-auto max-w-2xl  md:max-w-7xl">
         <Link className="font-semibold" href="/">
           The Echo Learning
         </Link>
         <nav className="hidden space-x-2 md:flex">
           <Link
             className="inline-flex h-8 items-center justify-center rounded-md px-3 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
-            href="#"
+            href="/"
           >
             Home
           </Link>

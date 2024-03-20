@@ -2,7 +2,7 @@ export type Episode = {
   id: number;
   slug: string;
   title: string;
-  coverImage: string;
+  coverEmojis: string[];
   videoSrc: string;
   captionSrc: string;
   tag: string;

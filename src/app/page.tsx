@@ -4,7 +4,6 @@ import Background from "@/components/CustomUI/background";
 export default function Home() {
   return (
     <main>
-      <Background />
       <div className="px-6 pt-14 lg:px-8">
         <div className="mx-auto max-w-2xl py-32 sm:py-28 lg:py-26">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">

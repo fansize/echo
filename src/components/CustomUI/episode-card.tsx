@@ -1,62 +1,50 @@
-import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
   slug?: string;
   title: string;
-  coverImage: string;
+  coverEmojis: string[];
   tag: string;
   topic: string;
 };
 
-export function EpisodeCard({ slug, title, coverImage, tag, topic }: Props) {
-  const image = (
-    <img
-      src={coverImage}
-      alt={`Cover Image for ${title}`}
-      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-    />
-    // <Image
-    //   src={src}
-    //   alt={`Cover Image for ${title}`}
-    //   className={cn("shadow-sm w-full", {
-    //     "hover:shadow-lg transition-shadow duration-200": slug,
-    //   })}
-    //   width={1300}
-    //   height={630}
-    // />
-  );
-
+export function EpisodeCard({ slug, title, coverEmojis, tag, topic }: Props) {
   return (
-    <>
-      <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-        {slug ? (
-          <Link
-            as={`/episodes/${slug}`}
-            href="/episodes/[slug]"
-            aria-label={title}
-          >
-            {image}
-          </Link>
-        ) : (
-          image
-        )}
-      </div>
-      <div className="mt-4 flex justify-between">
-        <div>
-          <h3 className="text-sm">
-            <Link
-              as={`/episodes/${slug}`}
-              href="/episodes/[slug]"
-              className="hover:underline"
-            >
-              {title}
-            </Link>
-          </h3>
-          <p className="mt-1 text-sm">{topic}</p>
+    <div className="relative">
+      <div className="absolute p-8 right-0 top-0 text-[20px]">
+        <div className="w-1/3 text-right">{coverEmojis[0]}</div>
+        <div className="w-2/3 text-right">
+          {coverEmojis.slice(1, 3).join("")}
         </div>
-        <p className="text-sm font-medium">{tag}</p>
+        <div className="w-full text-right">{coverEmojis.slice(3).join("")}</div>
       </div>
-    </>
+      {/* Other content */}
+
+      <Link as={`/episodes/${slug}`} href="/episodes/[slug]" aria-label={title}>
+        <div className="flex flex-row p-8 overflow-hidden rounded-lg justify-between bg-indigo-900 text-white lg:aspect-none group-hover:opacity-75">
+          <div className="flex flex-col gap-4">
+            <h3 className="text-2xl font-black tracking-wide line-clamp-1">
+              {title}
+            </h3>
+            <div className="flex flex-row">
+              <p className="flex py-2 px-4 bg-amber-500 rounded-md text-base font-semibold">
+                By {title}
+              </p>
+            </div>
+            <p className="text-base font-medium">
+              <span className="font-bold text-lg">100+</span> Sentences
+            </p>
+            <div className="flex flex-row gap-2">
+              <p className="text-sm font-medium py-1 px-4 border rounded-lg text-amber-500">
+                {topic}
+              </p>
+              <p className="text-sm font-medium py-1 px-4 border rounded-lg text-amber-500">
+                {tag}
+              </p>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 }

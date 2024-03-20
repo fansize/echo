@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import Container from "@/components/CustomUI/container";
 import Nav from "@/components/CustomUI/custom-nav";
+import Background from "@/components/CustomUI/background";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,8 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-50 dark:bg-black`}>
+      <body className={`${inter.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system">
+          <Background />
           <Nav />
           {/* <Container></Container> */}
           {children}
