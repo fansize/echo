@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { notFound } from "next/navigation";
 import { Caption } from "@/lib/parse-subtitles";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCcw } from "lucide-react";
@@ -20,8 +21,25 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { getEpisodeBySlug } from "@/lib/api";
 
-export default function Home() {
+// 从父页面通过 Router URL 中获取 slug
+type Params = {
+  params: {
+    slug: string;
+  };
+};
+
+export default function EpisodePage({ params }: Params) {
+  // 根据 slug 获取单个 episode
+  const episode = getEpisodeBySlug(params.slug);
+
+  // 如果没有找到对应的 episode，返回 404 页面
+  if (!episode) {
+    return notFound();
+  }
+
+  // 设定页面各种初始参数
   const [captions, setCaptions] = useState<Caption[]>([]);
   const [selectedCaption, setSelectedCaption] = useState<Caption>();
   const [videoUrl, setVideoUrl] = useState<string>("/videos/ep03.mp4");
@@ -92,6 +110,7 @@ export default function Home() {
     <main className="flex justify-center pt-20 px-4">
       <Nav />
       <div className="flex gap-9">
+        <p>{episode?.title}</p>
         <Tabs
           defaultValue="subtitle"
           className="h-[calc(100vh-10rem)] w-[600px]"

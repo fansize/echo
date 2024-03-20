@@ -187,13 +187,13 @@ export default function VideoComponent({
   }, [uploadVideoUrl, caption, echoPlay, playCount]);
 
   return (
-    <div className="p-6 border rounded-xl">
+    <div className="p-6 border rounded-xl w-[700px]">
       <div className="rounded-xl overflow-hidden">
         <div style={{ position: "relative" }}>
           <video
             ref={videoRef}
-            width="850"
-            height="478"
+            width="1920"
+            height="1080"
             // controls   // 显示播放器的控制按钮
             // autoPlay   // 加载页面后自动开始播放
             muted={isMuted}
