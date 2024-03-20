@@ -1,41 +1,24 @@
-"use client";
-
 import { useState, useEffect, useRef, useCallback, use } from "react";
-
-import { Caption } from "@/lib/parse-subtitles";
-
+import { Caption } from "@/lib/parse-caption";
 import { Eye, Languages, ListRestart, Settings } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { Button } from "@/components/ui/button";
-import ProcessButton from "@/components/CustomUI/process-button";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import StepBar from "@/components/CustomUI/step-bar";
+import SettingPanel from "@/components/CustomUI/setting-panel";
 
-type VideoProps = {
+type Props = {
   caption?: Caption;
   autoNextCaption: () => void;
+  onClickSwitch: (direction: "previous" | "next") => void;
   uploadVideoUrl: string;
 };
 
-export default function VideoComponent({
+export default function Video({
   caption,
   autoNextCaption,
+  onClickSwitch,
   uploadVideoUrl,
-}: VideoProps) {
+}: Props) {
   const [stepNumber, setStepNumber] = useState(1);
-  const buttons = [
-    { text: "听原声", id: 1 },
-    { text: "静音模仿", id: 2 },
-    { text: "同步读x1", id: 3 },
-    { text: "同步读x2", id: 4 },
-  ];
-
   const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
   const [isMuted, setMuted] = useState(false);
@@ -187,100 +170,34 @@ export default function VideoComponent({
   }, [uploadVideoUrl, caption, echoPlay, playCount]);
 
   return (
-    <div className="p-6 border rounded-xl w-[700px]">
-      <div className="rounded-xl overflow-hidden">
-        <div style={{ position: "relative" }}>
-          <video
-            ref={videoRef}
-            width="1920"
-            height="1080"
-            // controls   // 显示播放器的控制按钮
-            // autoPlay   // 加载页面后自动开始播放
-            muted={isMuted}
-            preload="auto"
-          >
-            <source src={uploadVideoUrl} type="video/mp4" />
-          </video>
-          {!showVideo && (
-            <div className="absolute inset-0 bg-black flex justify-center items-center">
-              <p className="text-lg text-white">...</p>
-            </div>
-          )}
-          {isSubtitleVisible && showVideo && caption && (
-            <div className="absolute bottom-5 px-2 inset-x-0 flex items-center justify-center">
-              <p className="text-2xl px-3 py-1 text-amber-500 bg-black/75 rounded-sm">
-                {caption.text}
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="flex justify-between items-center pt-5">
-        <Button variant="ghost">
-          {/* <Settings className="h-4 w-4" /> */}
-        </Button>
-        <div className="flex gap-4 font-mono text-sm">
-          {buttons.map((button) => (
-            <div className="items-center" key={button.id}>
-              <ProcessButton
-                buttonID={button.id}
-                text={button.text}
-                onClick={() => handleButtonClick(button.id)}
-                className={`${
-                  button.id === stepNumber ? "bg-amber-500 font-bold" : ""
-                }`}
-              />
-            </div>
-          ))}
-        </div>
-
-        <div className="flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost">
-                {/* <Settings className="h-4 w-4" /> */}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-26">
-              <DropdownMenuCheckboxItem
-                checked={isSubtitleVisible}
-                onCheckedChange={setSubtitleVisible}
-              >
-                Subtitle Visible
-              </DropdownMenuCheckboxItem>
-              <DropdownMenuCheckboxItem
-                checked={autoNext}
-                onCheckedChange={toggleAutoNext}
-              >
-                AutoNext
-              </DropdownMenuCheckboxItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
-      {/* <div className="flex pt-5 gap-2 items-center">
-        <Toggle
-          variant={"outline"}
-          size={"sm"}
-          aria-label="Toggle bold"
-          onClick={toggleSubtitle}
+    <>
+      <div className="relative rounded-xl overflow-hidden">
+        <video
+          ref={videoRef}
+          width="1920"
+          height="1080"
+          // controls   // 显示播放器的控制按钮
+          // autoPlay   // 加载页面后自动开始播放
+          muted={isMuted}
+          preload="auto"
         >
-          <Eye className="h-4 w-4" />
-        </Toggle>
-        <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
-          <Languages className="h-4 w-4" />
-        </Toggle>
-        <Toggle
-          variant={"outline"}
-          size={"sm"}
-          aria-label="Toggle bold"
-          onClick={toggleAutoNext}
-        >
-          <ListRestart className="h-4 w-4" />
-        </Toggle>
-      </div> */}
-    </div>
+          <source src={uploadVideoUrl} type="video/mp4" />
+        </video>
+        {!showVideo && (
+          <div className="absolute inset-0 bg-black flex justify-center items-center">
+            <p className="text-lg text-white">...</p>
+          </div>
+        )}
+        {isSubtitleVisible && showVideo && caption && (
+          <StepBar text={caption.text} stepNumber={stepNumber} />
+        )}
+      </div>
+      <SettingPanel
+        toggleSubtitle={toggleSubtitle}
+        toggleAutoNext={toggleAutoNext}
+        onClickSwitch={onClickSwitch}
+      />
+    </>
   );
 }
 

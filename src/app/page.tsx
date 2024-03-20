@@ -1,16 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Caption } from "@/lib/parse-subtitles";
+import { Caption } from "@/lib/parse-caption";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { RefreshCcw } from "lucide-react";
-import VideoComponent from "@/components/CustomUI/custom-video";
+import Video from "@/components/CustomUI/custom-video";
 import Nav from "@/components/CustomUI/custom-nav";
-import SubtitlePanel from "@/components/CustomUI/subtitle-panel";
+import CaptionPanel from "@/components/CustomUI/subtitle-panel";
 import UploadVideo from "@/components/CustomUI/upload-video";
 import UploadSubtitle from "@/components/CustomUI/upload-subtitle";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { ParseSubtitles } from "@/lib/parse-subtitles";
+import { ParseSubtitles } from "@/lib/parse-caption";
 import {
   Pagination,
   PaginationContent,
@@ -103,7 +103,7 @@ export default function Home() {
           </TabsList>
           <TabsContent value="subtitle">
             <ScrollArea className="h-[calc(100vh-10rem)]">
-              <SubtitlePanel
+              <CaptionPanel
                 captions={captions}
                 selectedCaption={selectedCaption}
                 onPlayClick={handlePlayClick}
@@ -121,9 +121,10 @@ export default function Home() {
         </Tabs>
 
         <div className="flex flex-col gap-4">
-          <VideoComponent
+          <Video
             caption={selectedCaption}
             autoNextCaption={autoNextCaption}
+            onClickSwitch={handleSwitchCaption}
             uploadVideoUrl={videoUrl}
           />
           <Pagination className="pt-9">

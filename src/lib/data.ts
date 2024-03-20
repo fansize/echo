@@ -4,56 +4,36 @@ export const mockEpisodes: Episode[] = [
   {
     id: 1,
     slug: "episode-1",
-    title: "Introduction to Next.js",
-    coverImage:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    videoSrc: "https://example.com/episode-1-video.mp4",
-    captionSrc: "https://example.com/episode-1-captions.vtt",
-    tag: "Next.js Basics",
-    topic: "Web Development",
+    title: "Describing a person",
+    coverImage: "/assets/images/coverImage/ep01.png",
+    videoSrc: "/assets/videos/ep03.mp4",
+    captionSrc: "/assets/captions/ep03.srt",
+    tag: "Easy",
+    topic: "Life",
   },
   {
     id: 2,
     slug: "episode-2",
-    title: "Advanced Routing in Next.js",
-    coverImage:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    videoSrc: "https://example.com/episode-2-video.mp4",
-    captionSrc: "https://example.com/episode-2-captions.vtt",
-    tag: "Next.js Routing",
-    topic: "Web Development",
+    title: "How to call",
+    coverImage: "/assets/images/coverImage/ep02.png",
+    videoSrc:
+      "http://salc3dvm1.bkt.gdipper.com/YSheldon.S01E12.mp4?e=1710924602&token=lwIN04iTSZ_s9cmbZO3oE7zDgsM-3M_VGeJj43xl:QWnlxUE-yphgzUNmrI3b8K6R56w=",
+    captionSrc:
+      "http://salc3dvm1.bkt.gdipper.com/YSheldon.S01E12.srt?e=1710924656&token=lwIN04iTSZ_s9cmbZO3oE7zDgsM-3M_VGeJj43xl:0dFYAHQuxcz2A4_WAAOU6XTbFvc=",
+    tag: "Medium",
+    topic: "Travel",
   },
+
   {
     id: 3,
     slug: "episode-3",
-    title: "Styling with CSS Modules in Next.js",
-    coverImage:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    videoSrc: "https://example.com/episode-3-video.mp4",
-    captionSrc: "https://example.com/episode-3-captions.vtt",
-    tag: "CSS Modules",
-    topic: "Web Development",
-  },
-  {
-    id: 4,
-    slug: "episode-4",
-    title: "State Management in Next.js with Redux",
-    coverImage:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    videoSrc: "https://example.com/episode-4-video.mp4",
-    captionSrc: "https://example.com/episode-4-captions.vtt",
-    tag: "State Management",
-    topic: "Web Development",
-  },
-  {
-    id: 5,
-    slug: "episode-5",
-    title: "Server-side Rendering in Next.js",
-    coverImage:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    videoSrc: "https://example.com/episode-5-video.mp4",
-    captionSrc: "https://example.com/episode-5-captions.vtt",
-    tag: "Server-side Rendering",
-    topic: "Web Development",
+    title: "Store at Vercel",
+    coverImage: "/assets/images/coverImage/ep02.png",
+    videoSrc:
+      "https://ko7uxl8h2z5pmfxi.public.blob.vercel-storage.com/ep02-t9TlvFpSXZCNrg1zAa9c0vDucurG2Q.mp4",
+    captionSrc:
+      "https://ko7uxl8h2z5pmfxi.public.blob.vercel-storage.com/ep02-jJBRZzYrZo357XEL9FPZNzkQNRXdQX.srt",
+    tag: "Medium",
+    topic: "Travel",
   },
 ];
