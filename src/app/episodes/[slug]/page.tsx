@@ -1,22 +1,13 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { notFound } from "next/navigation";
-import { Caption } from "@/lib/parse-caption";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { RefreshCcw } from "lucide-react";
-import Video from "@/components/CustomUI/custom-video";
-import Nav from "@/components/CustomUI/custom-nav";
-import CaptionPanel from "@/components/CustomUI/subtitle-panel";
-import UploadVideo from "@/components/CustomUI/upload-video";
-import UploadSubtitle from "@/components/CustomUI/upload-subtitle";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ParseSubtitles } from "@/lib/parse-caption";
-import SwitchCaption from "@/components/CustomUI/custom-pagination";
 import { getCaptionByUrl, getEpisodeBySlug } from "@/lib/api";
+import { Caption } from "@/interface/Caption";
+import Video from "@/components/CustomUI/custom-video";
+import CaptionPanel from "@/components/CustomUI/subtitle-panel";
 import Container from "@/components/CustomUI/container";
 import Background from "@/components/CustomUI/background";
 import BackButton from "@/components/CustomUI/back-button";
+import TypeBar from "@/components/CustomUI/type-bar";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
@@ -87,17 +78,16 @@ export default function EpisodePage({ params }: Params) {
           <BackButton title={episode.title} />
         </div>
         <div className="flex flex-col md:flex-row gap-4 mt-4">
-          <div className="flex flex-col content-start h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md p-8">
-            <ScrollArea className="">
-              <CaptionPanel
-                captions={captions}
-                selectedCaption={selectedCaption}
-                onPlayClick={handlePlayClick}
-              />
-            </ScrollArea>
+          <div className="flex flex-col p-4 md:p-8  h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md">
+            <TypeBar />
+            <CaptionPanel
+              captions={captions}
+              selectedCaption={selectedCaption}
+              onPlayClick={handlePlayClick}
+            />
           </div>
 
-          <div className="flex flex-col bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md p-8">
+          <div className="flex flex-col p-4 md:p-8 bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md">
             <Video
               caption={selectedCaption}
               autoNextCaption={autoNextCaption}

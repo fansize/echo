@@ -10,9 +10,11 @@ export default function EpisodesPage() {
     <main>
       <Container>
         <div className="mx-auto max-w-2xl py-8 md:max-w-7xl">
-          <h2 className="font-semibold tracking-tight">Episodes Listing</h2>
+          <h2 className="text-2xl font-semibold tracking-tight mt-8">
+            Episodes Listing
+          </h2>
 
-          <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4 lg:gap-x-6 lg:gap-y-6 ">
             {allEpisodes.map((episode) => (
               <div key={episode.id} className="group relative">
                 <EpisodeCard {...episode} />

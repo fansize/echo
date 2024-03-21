@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, useCallback, use } from "react";
-import { Caption } from "@/lib/parse-caption";
-import { Eye, Languages, ListRestart, Settings } from "lucide-react";
-import { Toggle } from "@/components/ui/toggle";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Caption } from "@/interface/Caption";
 import StepBar from "@/components/CustomUI/step-bar";
 import SettingPanel from "@/components/CustomUI/setting-panel";
+import CaptionBlock from "@/components/CustomUI/caption-block";
 
 type Props = {
   caption?: Caption;
@@ -189,8 +188,16 @@ export default function Video({
           </div>
         )}
         {isSubtitleVisible && showVideo && caption && (
-          <StepBar text={caption.text} stepNumber={stepNumber} />
+          <div className="absolute flex-col bottom-5 px-2 inset-x-0 flex items-center justify-center">
+            <CaptionBlock text={caption.text} />
+            <div className="hidden md:block">
+              <StepBar stepNumber={stepNumber} />
+            </div>
+          </div>
         )}
+      </div>
+      <div className="flex justify-center md:hidden">
+        <StepBar stepNumber={stepNumber} />
       </div>
       <SettingPanel
         toggleSubtitle={toggleSubtitle}

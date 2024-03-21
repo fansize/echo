@@ -1,9 +1,4 @@
-export type Caption = {
-  index: number;
-  start: string;
-  end: string;
-  text: string;
-};
+import { Caption } from "@/interface/Caption";
 
 export const ParseSubtitles = async (
   subtitleUrl: string

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Background from "@/components/CustomUI/background";
 
 export default function Home() {
   return (

@@ -1,4 +1,5 @@
 import { Caption } from "@/interface/Caption";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type Props = {
   captions: Caption[];
@@ -12,18 +13,22 @@ export default function CaptionPanel({
   onPlayClick,
 }: Props) {
   return (
-    <div className="flex flex-col gap-1">
-      {captions.map((caption, index) => (
-        <div
-          key={index}
-          className={`inline-flex p-2 rounded-sm text-base cursor-pointer transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 ${
-            caption === selectedCaption ? "bg-amber-500 hover:bg-amber-500" : ""
-          }`}
-          onClick={() => onPlayClick(caption)}
-        >
-          <p>{caption.text}</p>
-        </div>
-      ))}
-    </div>
+    <ScrollArea>
+      <div className="flex flex-col gap-1 mt-4">
+        {captions.map((caption, index) => (
+          <div
+            key={index}
+            className={`inline-flex p-2 rounded-sm text-base cursor-pointer transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50 ${
+              caption === selectedCaption
+                ? "bg-amber-500 hover:bg-amber-500"
+                : ""
+            }`}
+            onClick={() => onPlayClick(caption)}
+          >
+            <p>{caption.text}</p>
+          </div>
+        ))}
+      </div>
+    </ScrollArea>
   );
 }
