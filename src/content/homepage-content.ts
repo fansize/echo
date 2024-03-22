@@ -6,11 +6,11 @@ export const content_cn = {
   ],
   subtitle: "回音法 (The Echo Method)",
   description: [
-    { text: "Listen: 听一句短短的英文，3~5 秒比较合适。" },
+    { text: "第1步: 听一句短短的英文，3~5 秒比较合适。" },
     {
-      text: "Echo: 静下來 3 秒，脑中回忆刚才听到的音调、情绪。",
+      text: "第2步: 静下來 3 秒，脑中回忆刚才听到的音调、情绪。",
     },
-    { text: "Mimic: 模仿脑中的回音大声地念出來。" },
+    { text: "第3步: 模仿脑中的回音大声地念出來。" },
   ],
   announcement: "Announcing our next round of funding.",
   getStarted: "开始学习",

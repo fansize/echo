@@ -18,6 +18,12 @@ type Params = {
 
 export default function EpisodePage({ params }: Params) {
   // 根据 slug 获取单个 episode
+  // if (params.slug === "upload") {
+  //   console.log("upload");
+  // } else {
+  //   const episode = getEpisodeBySlug(params.slug);
+  // }
+
   const episode = getEpisodeBySlug(params.slug);
 
   // 设定页面各种初始参数

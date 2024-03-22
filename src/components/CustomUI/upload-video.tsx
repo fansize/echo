@@ -1,5 +1,3 @@
-"use client";
-
 import { Film } from "lucide-react";
 
 interface UploadVideoProps {

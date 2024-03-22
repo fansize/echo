@@ -1,5 +1,3 @@
-"use client";
-
 import { Captions } from "lucide-react";
 
 interface UploadSubtitleProps {

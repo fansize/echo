@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import Highlight from "@/components/home/highlight";
 import { content_cn } from "@/content/homepage-content";
 
 export default function CTA() {
@@ -28,9 +29,9 @@ export default function CTA() {
         </div>
       </div>
 
-      <div className="mt-8 text-lg leading-8 text-gray-600">
+      <div className="mt-8  text-gray-600">
         {content_cn.description.map((step, index) => (
-          <p key={index}>{step.text}</p>
+          <Highlight key={index} text={step.text} />
         ))}
       </div>
       <div className="mt-16 flex items-center justify-center md:justify-start gap-x-6">
