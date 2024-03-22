@@ -1,15 +1,17 @@
+"use client";
 import { Film } from "lucide-react";
 
 interface UploadVideoProps {
   onFileSelected: (url: string) => void;
 }
 
-export default function UploadVideo({ onFileSelected }: UploadVideoProps) {
+export default function UploadVideo() {
   // 选择文件后，将文件的URL存储到videoUrl中
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const fileUrl = URL.createObjectURL(event.target.files[0]);
-      onFileSelected(fileUrl);
+      localStorage.setItem('uploadedVideoUrl', fileUrl);
+      // onFileSelected(fileUrl);
     }
   };
 

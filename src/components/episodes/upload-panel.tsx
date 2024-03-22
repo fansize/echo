@@ -1,21 +1,39 @@
+"use client";
+import { useState } from 'react';
 import Link from "next/link";
-import UploadSubtitle from "../CustomUI/upload-subtitle";
-import UploadVideo from "../CustomUI/upload-video";
-
-type Props = {
-    selectedTag?: number;
-};
 
 export default function UploadPanel() {
-    const tags = [{ text: "Easy" }, { text: "Medium" }, { text: "Hard" }];
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
+        if (event.target.files && event.target.files[0]) {
+            const fileUrl = URL.createObjectURL(event.target.files[0]);
+            if (type === 'video') {
+                localStorage.setItem('uploadedVideoUrl', fileUrl);
+            } else if (type === 'subtitle') {
+                localStorage.setItem('uploadedCaptionUrl', fileUrl);
+            }
+        }
+    };
 
     return (
         <>
-            {/* <UploadSubtitle />
-            <UploadVideo /> */}
+            <input
+                id="video-upload"
+                name="video-upload"
+                type="file"
+                accept="video/*"
+                onChange={(event) => handleFileChange(event, 'video')}
+            />
+            <input
+                id="subtitle-upload"
+                name="subtitle-upload"
+                type="file"
+                accept=".srt,.vtt"
+                onChange={(event) => handleFileChange(event, 'subtitle')}
+            />
 
             <Link as={`/episodes/${"upload"}`} href="/episodes/[slug]">
-                start</Link>
+                start
+            </Link>
         </>
     );
 }

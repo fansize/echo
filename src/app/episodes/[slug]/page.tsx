@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getCaptionByUrl, getEpisodeBySlug } from "@/lib/api";
+import { getCaptionByUrl, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
+import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
 import Video from "@/components/CustomUI/custom-video";
 import CaptionPanel from "@/components/CustomUI/subtitle-panel";
@@ -17,16 +18,11 @@ type Params = {
 };
 
 export default function EpisodePage({ params }: Params) {
-  // 根据 slug 获取单个 episode
-  // if (params.slug === "upload") {
-  //   console.log("upload");
-  // } else {
-  //   const episode = getEpisodeBySlug(params.slug);
-  // }
-
-  const episode = getEpisodeBySlug(params.slug);
+  // 获取默认 Episode
+  const heroEpisode = getHeroEpisode();
 
   // 设定页面各种初始参数
+  const [episode, setEpisode] = useState<Episode>(heroEpisode);
   const [captions, setCaptions] = useState<Caption[]>([]);
   const [selectedCaption, setSelectedCaption] = useState<Caption>();
   const [autoNumber, setAutoNumber] = useState(0);
@@ -66,10 +62,24 @@ export default function EpisodePage({ params }: Params) {
 
   // 根据 captionSrc 获取字幕
   useEffect(() => {
-    getCaptionByUrl(episode.captionSrc).then((captions) => {
-      setCaptions(captions);
-    });
-  }, [episode]);
+    if (params.slug === "upload") {
+      // If the slug is "upload", use the local video URL
+      const videoUrl = localStorage.getItem('uploadedVideoUrl');
+      const captionUrl = localStorage.getItem('uploadedCaptionUrl');
+      // console.log(videoUrl, captionUrl);
+      episode.videoSrc = videoUrl || '';
+      episode.captionSrc = captionUrl || '';
+    } else {
+      // Otherwise, get the episode from the server
+      const episode = getEpisodeBySlug(params.slug);
+      setEpisode(episode);
+    }
+    if (episode) {
+      getCaptionByUrl(episode.captionSrc).then((captions) => {
+        setCaptions(captions);
+      });
+    }
+  }, [params.slug, episode]);
 
   // 通过autoNumber触发自动播放下一条字幕
   useEffect(() => {
