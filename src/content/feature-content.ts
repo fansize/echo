@@ -1,7 +1,7 @@
 import { Target, FileVideo, MessageSquareReply } from "lucide-react";
 
 export const content_cn = {
-  title: "什么是英语学习的回音法?",
+  title: "回音法学习英语的步骤",
   description: "回音法是一种英语学习方法，通过听、回忆、模仿来提高英语口语。",
 
   recommendation: [

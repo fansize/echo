@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { content_cn } from "@/content/homepage-content";
 
@@ -10,7 +9,7 @@ export default function CTA() {
         <h2>
           {content_cn.title.map((part, index) =>
             part.special ? (
-              <span key={index} className="text-indigo-600 font-bold">
+              <span key={index} className="text-indigo-600 font-black">
                 {part.text}
               </span>
             ) : (
@@ -37,12 +36,12 @@ export default function CTA() {
       <div className="mt-16 flex items-center justify-center md:justify-start gap-x-6">
         <Link
           href="/episodes"
-          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="rounded-md bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           {content_cn.getStarted}
         </Link>
         <Link
-          href="#"
+          href="/wiki"
           className="text-sm font-semibold leading-6 text-gray-900"
         >
           {content_cn.learnMore} <span aria-hidden="true">→</span>

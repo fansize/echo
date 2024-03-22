@@ -5,10 +5,11 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-50 border-t border-neutral-200">
       <Container>
-        <div className="py-28 flex flex-col lg:flex-row items-center justify-between">
-          <h3 className="text-4xl lg:text-[2.5rem] font-bold tracking-tighter leading-tight text-center lg:text-left mb-10 lg:mb-0 lg:pr-4 lg:w-1/2">
-            The Echo Method.
-          </h3>
+        <div className="mx-auto max-w-2xl py-16 md:max-w-7xl flex flex-col md:flex-row items-center justify-between">
+          <div className="text-4xl lg:text-[2.5rem] font-bold tracking-tighter leading-tight text-center md:text-left mb-10 lg:mb-0 md:pr-4 md:w-1/2">
+            <h3>喵喵英语</h3>
+            <h3 className="lg:text-[1.5rem]">The Echo Method.</h3>
+          </div>
 
           <Link
             href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts"

@@ -1,7 +1,8 @@
 export const content_cn = {
   title: [
-    { text: "How to learn English ", special: false },
-    { text: "Well ?", special: true },
+    { text: "怎么才能把英语", special: false },
+    { text: "学好?", special: true },
+    // { text: "英语?", special: false },
   ],
   subtitle: "回音法 (The Echo Method)",
   description: [
