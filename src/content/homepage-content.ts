@@ -7,7 +7,7 @@ export const content_cn = {
   description: [
     { text: "Listen: 听一句短短的英文，3~5 秒比较合适。" },
     {
-      text: "Echo: 静下來 3 秒，让刚刚听到的话在脑中重播，回忆刚才听到的音调、情绪。",
+      text: "Echo: 静下來 3 秒，脑中回忆刚才听到的音调、情绪。",
     },
     { text: "Mimic: 模仿脑中的回音大声地念出來。" },
   ],

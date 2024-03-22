@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
-import { mockEpisodes } from "@/lib/data";
+import { mockEpisodes } from "@/content/episodes";
 
 // 根据 slug 获取单个 episode
 export function getEpisodeBySlug(slug: string) {
@@ -10,6 +10,11 @@ export function getEpisodeBySlug(slug: string) {
   if (!episode) {
     return notFound();
   }
+  return episode;
+}
+
+export function getHeroEpisode() { 
+  const episode = getAllEpisodes()[0];
   return episode;
 }
 
