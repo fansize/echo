@@ -69,7 +69,7 @@ export default function EpisodePage({ params }: Params) {
       // console.log(videoUrl, captionUrl);
       episode.videoSrc = videoUrl || '';
       episode.captionSrc = captionUrl || '';
-      getCaptionByUrl(episode.captionSrc).then((captions) => {
+      getCaptionByUrl(episode.captionSrc, episode.startIndex, episode.endIndex).then((captions) => {
         setCaptions(captions);
         setSelectedCaption(captions[0]);
       });
@@ -77,7 +77,7 @@ export default function EpisodePage({ params }: Params) {
       // Otherwise, get the episode from the server
       const episode = getEpisodeBySlug(params.slug);
       setEpisode(episode);
-      getCaptionByUrl(episode.captionSrc).then((captions) => {
+      getCaptionByUrl(episode.captionSrc, episode.startIndex, episode.endIndex).then((captions) => {
         setCaptions(captions);
         setSelectedCaption(captions[0]);
       });

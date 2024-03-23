@@ -216,9 +216,10 @@ export default function Video({
           </div>
         )}
 
-        {isSubtitleVisible && showVideo && caption && isPlaying && (
+        {showVideo && caption && isPlaying && (
           <div className="absolute flex-col bottom-5 px-2 inset-x-0 flex items-center justify-center">
-            <CaptionBlock text={caption.text} />
+            {isSubtitleVisible ? <CaptionBlock text={caption.text} /> : null}
+
             <div className="hidden md:block">
               <StepBar stepNumber={stepNumber} />
             </div>

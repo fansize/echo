@@ -2,7 +2,7 @@ import { Episode } from "@/interface/Episode";
 
 export const mockEpisodes: Episode[] = [
   {
-    id: 1,
+
     slug: "episode-1",
     title: "示例视频，小谢尔顿",
     coverEmojis: getRandomEmojis(),
@@ -12,7 +12,7 @@ export const mockEpisodes: Episode[] = [
     topic: "日常",
   },
   {
-    id: 3,
+
     slug: "episode-3",
     title: "小谢尔顿S2E14",
     coverEmojis: getRandomEmojis(),
@@ -24,7 +24,7 @@ export const mockEpisodes: Episode[] = [
     topic: "美剧",
   },
   {
-    id: 6,
+
     slug: "episode-6",
     title: "如何拨打紧急电话",
     coverEmojis: getRandomEmojis(),
@@ -36,7 +36,7 @@ export const mockEpisodes: Episode[] = [
     topic: "日常",
   },
   {
-    id: 7,
+
     slug: "episode-7",
     title: "Children's fiction",
     coverEmojis: getRandomEmojis(),
@@ -44,6 +44,42 @@ export const mockEpisodes: Episode[] = [
     captionSrc:"https://codecat.uk/A%20911%20Call%20full%20video.srt",
     tag: "1.22",
     topic: "日常",
+  },
+  {
+
+    slug: "episode-8",
+    title: "日常对话001",
+    coverEmojis: getRandomEmojis(),
+    videoSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.webm",
+    captionSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.srt",
+    startIndex: 0,
+    endIndex: 100,
+    tag: "3",
+    topic: "日常对话",
+  },
+  {
+
+    slug: "episode-9",
+    title: "日常对话002",
+    coverEmojis: getRandomEmojis(),
+    videoSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.webm",
+    captionSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.srt",
+    startIndex: 101,
+    endIndex: 200,
+    tag: "3",
+    topic: "日常对话",
+  },
+  {
+
+    slug: "episode-10",
+    title: "日常对话003",
+    coverEmojis: getRandomEmojis(),
+    videoSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.webm",
+    captionSrc:"https://codecat.uk/Everyday%20English%20Listening%20%20Speaking%20%EF%BD%9C%20Listen%20%20Speak%20English%20Like%20a%20Native%20%EF%BD%9C%20English%20Conversation%20%5BDotppT_JH3E%5D.srt",
+    startIndex: 201,
+    endIndex: 300,
+    tag: "3",
+    topic: "日常对话",
   },
 ];
 

@@ -40,9 +40,9 @@ export default function SettingPanel({
           <Eye className="h-4 w-4" />
         </Toggle>
 
-        <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
+        {/* <Toggle variant={"outline"} size={"sm"} aria-label="Toggle bold">
           <Languages className="h-4 w-4" />
-        </Toggle>
+        </Toggle> */}
 
         <Toggle
           variant={"outline"}
