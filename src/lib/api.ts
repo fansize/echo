@@ -14,7 +14,7 @@ export function getEpisodeBySlug(slug: string) {
 }
 
 export function getHeroEpisode() {
-  const episode = getAllEpisodes()[0];
+  const episode = getAllEpisodes("all")[0];
   return episode;
 }
 
