@@ -1,7 +1,7 @@
 export type Episode = {
   slug: string;
   title: string;
-  coverEmojis: string[];
+  coverEmojis: string;
   videoSrc: string;
   captionSrc: string;
   startIndex?: number;

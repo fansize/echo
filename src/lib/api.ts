@@ -13,23 +13,36 @@ export function getEpisodeBySlug(slug: string) {
   return episode;
 }
 
-export function getHeroEpisode() { 
+export function getHeroEpisode() {
   const episode = getAllEpisodes()[0];
   return episode;
 }
 
 // 从数据库获取所有 episodes
-export function getAllEpisodes(): Episode[] {
-  const episodes = mockEpisodes.sort((episode1, episode2) =>
+export function getAllEpisodes(topic: string): Episode[] {
+  let episodes = mockEpisodes;
+
+  if (topic === "all") {
+    return episodes;
+  } else {
+    episodes = episodes.filter((episode) => episode.topic === topic);
+  }
+
+  episodes.sort((episode1, episode2) =>
     episode1.title > episode2.title ? 1 : -1
   );
+
   return episodes;
 }
 
 // TODO: 无法直接获取本地同名字幕，可能需要通过 api 获取 Whisper 来实现
 
 // 根据字幕地址获取字幕
-export async function getCaptionByUrl(captionSrc: string, startIndex?: number, endIndex?: number): Promise<Caption[]> {
+export async function getCaptionByUrl(
+  captionSrc: string,
+  startIndex?: number,
+  endIndex?: number
+): Promise<Caption[]> {
   const response = await fetch(captionSrc);
   const blob = await response.blob();
 
@@ -46,7 +59,8 @@ export async function getCaptionByUrl(captionSrc: string, startIndex?: number, e
 
       const parsed = subtitleBlocks
         .map((subtitleBlock) => {
-          let [indexString, timeString, ...textLines] = subtitleBlock.split("\n");
+          let [indexString, timeString, ...textLines] =
+            subtitleBlock.split("\n");
           const index = parseInt(indexString);
           const [start, end] = timeString.split(" --> ");
           const text = textLines
@@ -68,7 +82,10 @@ export async function getCaptionByUrl(captionSrc: string, startIndex?: number, e
             start: string;
             end: string;
             text: string;
-          } => item !== null && (startIndex === undefined || item.index >= startIndex) && (endIndex === undefined || item.index <= endIndex)
+          } =>
+            item !== null &&
+            (startIndex === undefined || item.index >= startIndex) &&
+            (endIndex === undefined || item.index <= endIndex)
         );
       resolve(parsed);
     };

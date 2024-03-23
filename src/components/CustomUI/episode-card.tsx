@@ -4,7 +4,7 @@ import EmojiImage from "@/components/CustomUI/emoji-image";
 type Props = {
   slug: string;
   title: string;
-  coverEmojis: string[];
+  coverEmojis: string;
   tag: string;
   topic: string;
 };
@@ -13,7 +13,7 @@ export function EpisodeCard({ slug, title, coverEmojis, tag, topic }: Props) {
   return (
     <div className="relative">
       <div className="absolute px-8 py-10 right-0 bottom-0">
-        <EmojiImage emoji={coverEmojis[0]} />
+        <EmojiImage emoji={coverEmojis} />
       </div>
 
       <Link as={`/episodes/${slug}`} href="/episodes/[slug]" aria-label={title}>
@@ -24,15 +24,11 @@ export function EpisodeCard({ slug, title, coverEmojis, tag, topic }: Props) {
             </h3>
             <div className="flex">
               <div className="py-2 px-4 bg-amber-500 rounded-md">
-                <p className="text-xs font-semibold line-clamp-1">
-                  {tag} 分钟
-                </p>
+                <p className="text-xs font-semibold line-clamp-1">{tag}</p>
               </div>
             </div>
             <div className="flex flex-row gap-2">
-              <p className="text-sm font-medium  text-amber-500">
-                # {topic}
-              </p>
+              <p className="text-sm font-medium  text-amber-500"># {topic}</p>
             </div>
           </div>
         </div>
