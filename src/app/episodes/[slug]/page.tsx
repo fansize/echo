@@ -69,14 +69,17 @@ export default function EpisodePage({ params }: Params) {
       // console.log(videoUrl, captionUrl);
       episode.videoSrc = videoUrl || '';
       episode.captionSrc = captionUrl || '';
+      getCaptionByUrl(episode.captionSrc).then((captions) => {
+        setCaptions(captions);
+        setSelectedCaption(captions[0]);
+      });
     } else {
       // Otherwise, get the episode from the server
       const episode = getEpisodeBySlug(params.slug);
       setEpisode(episode);
-    }
-    if (episode) {
       getCaptionByUrl(episode.captionSrc).then((captions) => {
         setCaptions(captions);
+        setSelectedCaption(captions[0]);
       });
     }
   }, [params.slug, episode]);
@@ -88,14 +91,13 @@ export default function EpisodePage({ params }: Params) {
 
   return (
     <main>
-      <Background />
       <Container>
         <div className="mt-4">
           <BackButton title={episode.title} />
         </div>
         <div className="flex flex-col md:flex-row gap-4 mt-4">
-          <div className="flex flex-col p-4 md:p-8  h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md">
-            <TypeBar />
+          <div className="flex flex-col p-4 md:p-8 h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md">
+            {/* <TypeBar /> */}
             <CaptionPanel
               captions={captions}
               selectedCaption={selectedCaption}

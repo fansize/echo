@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+    "plugins": ["react", "@typescript-eslint", "prettier"],
+    "rules": {
+      "prettier/prettier": "error",
+      "react/jsx-uses-react": "off",
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-filename-extension": [1, { "extensions": [".tsx",".ts"] }]
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018,
+      "sourceType": "module",
+        "ecmaFeatures": {
+        "jsx": true
+      }
+  },
+  
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }

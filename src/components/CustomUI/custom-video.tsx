@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Caption } from "@/interface/Caption";
+import PlayButton from "@/components/CustomUI/play-button";
 import StepBar from "@/components/CustomUI/step-bar";
 import SettingPanel from "@/components/CustomUI/setting-panel";
 import CaptionBlock from "@/components/CustomUI/caption-block";
@@ -9,6 +10,7 @@ type Props = {
   autoNextCaption: () => void;
   onClickSwitch: (direction: "previous" | "next") => void;
   uploadVideoUrl: string;
+  defaultPlay?: boolean;
 };
 
 export default function Video({
@@ -16,12 +18,15 @@ export default function Video({
   autoNextCaption,
   onClickSwitch,
   uploadVideoUrl,
+  defaultPlay = true,
 }: Props) {
   const [stepNumber, setStepNumber] = useState(1);
   const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
   const [isMuted, setMuted] = useState(false);
-  const [autoNext, setAutoNext] = useState(false);
+  const [autoNext, setAutoNext] = useState(true);
+  // 视频引用
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // 隐藏或显示字幕
   const toggleSubtitle = () => {
@@ -33,13 +38,23 @@ export default function Video({
     setAutoNext(!autoNext);
   };
 
-  // 点击按钮选择第步骤
+  // 播放或暂停视频
+  const [isPlaying, setIsPlaying] = useState(defaultPlay);
+  const handlePlayPause = () => {
+    if (videoRef.current) {
+      if (isPlaying) {
+        videoRef.current.pause();
+      } else {
+        videoRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  // 切换学习步骤
   const handleButtonClick = (id: number): void => {
     setStepNumber(id);
   };
-
-  // 视频引用
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   // 重复播放次数
   const [playCount, setPlayCount] = useState<number>(1);
@@ -121,9 +136,11 @@ export default function Video({
                       timeouts.push(
                         setTimeout(() => {
                           playFromStartToEnd(start, end, () => {
-                            // console.log("end");
+                            // 最后一遍播放完毕后，判断是否自动播放下一条字幕还是暂停             
                             if (autoNext) {
                               autoNextCaption();
+                            } else {
+                              setIsPlaying(false);
                             }
                           });
                         }, 0)
@@ -150,12 +167,14 @@ export default function Video({
     [videoRef, autoNext]
   );
 
+  // 选择视频后立即加载视频
   useEffect(() => {
-    // 选择视频后立即加载视频
     if (videoRef.current) {
       videoRef.current.load();
     }
+  }, [uploadVideoUrl]);
 
+  useEffect(() => {
     let cancelEchoPlay: () => void;
     if (caption) {
       cancelEchoPlay = echoPlay(caption);
@@ -166,7 +185,7 @@ export default function Video({
         cancelEchoPlay();
       }
     };
-  }, [uploadVideoUrl, caption, echoPlay, playCount]);
+  }, [caption]);
 
   return (
     <>
@@ -179,15 +198,25 @@ export default function Video({
           // autoPlay   // 加载页面后自动开始播放
           muted={isMuted}
           preload="auto"
+          onClick={handlePlayPause}
         >
           <source src={uploadVideoUrl} type="video/mp4" />
         </video>
+
+        <button
+          className="absolute inset-0 flex justify-center items-center"
+          onClick={handlePlayPause}
+        >
+          {isPlaying ? null : <PlayButton />}
+        </button>
+
         {!showVideo && (
           <div className="absolute inset-0 bg-black flex justify-center items-center">
             <p className="text-lg text-white">...</p>
           </div>
         )}
-        {isSubtitleVisible && showVideo && caption && (
+
+        {isSubtitleVisible && showVideo && caption && isPlaying && (
           <div className="absolute flex-col bottom-5 px-2 inset-x-0 flex items-center justify-center">
             <CaptionBlock text={caption.text} />
             <div className="hidden md:block">

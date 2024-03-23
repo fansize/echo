@@ -2,7 +2,6 @@ export const content_cn = {
   title: [
     { text: "怎么才能把英语", special: false },
     { text: "学好?", special: true },
-    // { text: "英语?", special: false },
   ],
   subtitle: "回音法 (The Echo Method)",
   description: [
@@ -12,7 +11,6 @@ export const content_cn = {
     },
     { text: "第3步: 模仿脑中的回音大声地念出來。" },
   ],
-  announcement: "Announcing our next round of funding.",
   getStarted: "开始学习",
   learnMore: "了解更多",
   readMore: "了解更多",

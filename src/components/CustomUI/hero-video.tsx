@@ -20,13 +20,15 @@ export default function HeroVideo() {
     // 设定页面各种初始参数
     const [captions, setCaptions] = useState<Caption[]>([]);
     const [selectedCaption, setSelectedCaption] = useState<Caption>();
+    const [autoNumber, setAutoNumber] = useState(0);
 
 
 
     // 自动播放下一条字幕
     const autoNextCaption = () => {
         // 没触发一次函数，autoNumber + 1
-        // setAutoNumber((prevautopNumber) => prevautopNumber + 1);
+        setAutoNumber((prevautopNumber) => prevautopNumber + 1);
+        // handleSwitchCaption("next");
     };
 
     // 上一条/下一条字幕
@@ -55,10 +57,14 @@ export default function HeroVideo() {
     useEffect(() => {
         getCaptionByUrl(episode.captionSrc).then((captions) => {
             setCaptions(captions);
+            setSelectedCaption(captions[0]);
         });
     }, [episode]);
 
-
+    // 通过autoNumber触发自动播放下一条字幕
+    useEffect(() => {
+        handleSwitchCaption("next");
+    }, [autoNumber]);
 
     return (
 
@@ -69,6 +75,7 @@ export default function HeroVideo() {
                 autoNextCaption={autoNextCaption}
                 onClickSwitch={handleSwitchCaption}
                 uploadVideoUrl={episode?.videoSrc}
+                defaultPlay={false}
             />
         </div>
 

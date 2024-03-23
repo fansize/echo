@@ -22,7 +22,7 @@ export default function SettingPanel({
   onClickSwitch,
 }: Props) {
   return (
-    <div className="flex flex-row justify-center gap-4 mt-8">
+    <div className="flex flex-row justify-center gap-4 mt-8 mb-4">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
