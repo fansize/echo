@@ -3,7 +3,7 @@ import Container from "@/components/CustomUI/container";
 
 export default function Footer() {
   return (
-    <footer className="bg-neutral-50 border-t border-neutral-200">
+    <footer className=" bg-neutral-50 dark:bg-neutral-800/20 border-t border-neutral-200 dark:border-slate-100/20">
       <Container>
         <div className="mx-auto max-w-2xl py-16 md:max-w-7xl flex flex-col md:flex-row items-center justify-between">
           <div className="text-4xl lg:text-[2.5rem] font-bold tracking-tighter leading-tight text-center md:text-left mb-10 lg:mb-0 md:pr-4 md:w-1/2">
@@ -13,12 +13,11 @@ export default function Footer() {
 
           <Link
             href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts"
-            className="mx-3 bg-black hover:bg-white hover:text-black border border-black text-white font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
+            className="mx-3  hover:bg-white hover:text-black border  font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
           >
             Read Documentation
           </Link>
         </div>
-
       </Container>
     </footer>
   );

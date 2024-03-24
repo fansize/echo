@@ -5,7 +5,7 @@ import ModeToggle from "@/components/theme/toggle-theme-button";
 const content_cn = {
   title: "喵喵英语",
   logo: "/logo.svg",
-}
+};
 
 const navLinks = [
   { href: "/", text: "首页" },
@@ -20,20 +20,29 @@ export default function Nav() {
         <div className="flex items-center">
           <Link className=" mr-4 md:mr-8" href="/">
             <div className="flex flex-row items-center gap-2">
-              <Image src={content_cn.logo} alt="logo" width={40} height={40} />
-              <h2 className="hidden md:block text-xl font-semibold">{content_cn.title}</h2>
+              <Image
+                src={content_cn.logo}
+                className="text-white"
+                alt="logo"
+                width={40}
+                height={40}
+              />
+              <h2 className="text-lg md:text-xl font-semibold">
+                {content_cn.title}
+              </h2>
             </div>
           </Link>
-
-          {navLinks.map((link, index) => (
-            <Link
-              key={index}
-              className="inline-flex h-8 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
-              href={link.href}
-            >
-              {link.text}
-            </Link>
-          ))}
+          <div className="hidden md:block">
+            {navLinks.map((link, index) => (
+              <Link
+                key={index}
+                className="inline-flex h-8 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 dark:hover:bg-gray-800 dark:hover:text-gray-50"
+                href={link.href}
+              >
+                {link.text}
+              </Link>
+            ))}
+          </div>
         </div>
 
         <div className="flex md:hidden">

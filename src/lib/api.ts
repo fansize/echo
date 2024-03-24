@@ -14,17 +14,15 @@ export function getEpisodeBySlug(slug: string) {
 }
 
 export function getHeroEpisode() {
-  const episode = getAllEpisodes("all")[0];
+  const episode = getAllEpisodes("日常对话")[0];
   return episode;
 }
 
 // 从数据库获取所有 episodes
-export function getAllEpisodes(topic: string): Episode[] {
+export function getAllEpisodes(topic?: string): Episode[] {
   let episodes = mockEpisodes;
 
-  if (topic === "all") {
-    return episodes;
-  } else {
+  if (topic) {
     episodes = episodes.filter((episode) => episode.topic === topic);
   }
 

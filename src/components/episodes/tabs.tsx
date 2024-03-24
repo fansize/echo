@@ -1,5 +1,4 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import UploadPanel from "./upload-panel";
 import { tags } from "@/content/episodes";
 
 type Props = {
@@ -7,25 +6,35 @@ type Props = {
 };
 
 export default function TopicTab({ onClick }: Props) {
+  const all = "All";
+  const daily = tags.daily.topic;
+  const oxford3000 = tags.oxford3000.topic;
+
   return (
-    <Tabs defaultValue="all" className="">
+    <Tabs defaultValue={all}>
       <TabsList>
-        <TabsTrigger value="all" onClick={() => onClick("all")}>
-          All
+        <TabsTrigger value={all} onClick={() => onClick("")}>
+          {all}
         </TabsTrigger>
-        <TabsTrigger value="ietls" onClick={() => onClick(tags.daily.topic)}>
-          {tags.daily.topic}
+
+        <TabsTrigger value={daily} onClick={() => onClick(daily)}>
+          {daily}
         </TabsTrigger>
-        <TabsTrigger value="travel" onClick={() => onClick(tags.series.topic)}>
-          {tags.series.topic}
+
+        <TabsTrigger value={oxford3000} onClick={() => onClick(oxford3000)}>
+          {oxford3000}
         </TabsTrigger>
       </TabsList>
-      {/* <TabsContent value="all">Make changes to your account here.</TabsContent>
-            <TabsContent value="ietls">Change your password here.</TabsContent>
-            <TabsContent value="travel">Change your password here.</TabsContent> */}
-      <TabsContent value="travel">
-        <UploadPanel />
+
+      {/* <TabsContent value={all}>
+        <p className="pt-2">Make changes to your account here.</p>
       </TabsContent>
+      <TabsContent value={daily}>
+        <p className="pt-2">Change your password here.</p>
+      </TabsContent>
+      <TabsContent value={oxford3000}>
+        <p className="pt-2">Change your password here.</p>
+      </TabsContent> */}
     </Tabs>
   );
 }

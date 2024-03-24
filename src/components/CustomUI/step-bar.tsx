@@ -13,19 +13,19 @@ export default function StepBar({ stepNumber }: Props) {
   ];
 
   return (
-    <div className="flex justify-between items-center mt-4">
-      <div className="flex flex-row gap-2 md:gap-4">
-        {buttons.map((button) => (
-          <div className="items-center" key={button.id}>
-            <StepButton
-              text={button.text}
-              className={`${
-                button.id === stepNumber ? "bg-amber-500 font-extrabold" : ""
-              }`}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-row justify-between items-center mt-4 gap-2 sm:gap-2 md:gap-4">
+      {buttons.map((button) => (
+        <div className="items-center" key={button.id}>
+          <StepButton
+            text={button.text}
+            className={`${
+              button.id === stepNumber
+                ? "bg-amber-500 font-extrabold"
+                : "bg-neutral-200 dark:bg-slate-700"
+            }`}
+          />
+        </div>
+      ))}
     </div>
   );
 }

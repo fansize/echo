@@ -6,7 +6,7 @@ import Container from "@/components/CustomUI/container";
 import TopicTab from "@/components/episodes/tabs";
 
 export default function EpisodesPage() {
-  const [topic, setTopic] = useState<string>("all");
+  const [topic, setTopic] = useState<string>();
   const allEpisodes = getAllEpisodes(topic);
 
   const handleTopicClick = (topic: string) => {

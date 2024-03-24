@@ -136,7 +136,7 @@ export default function Video({
                       timeouts.push(
                         setTimeout(() => {
                           playFromStartToEnd(start, end, () => {
-                            // 最后一遍播放完毕后，判断是否自动播放下一条字幕还是暂停             
+                            // 最后一遍播放完毕后，判断是否自动播放下一条字幕还是暂停
                             if (autoNext) {
                               autoNextCaption();
                             } else {

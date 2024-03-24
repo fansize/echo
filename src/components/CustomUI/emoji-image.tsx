@@ -11,7 +11,7 @@ export default function EmojiImage({ emoji }: Props) {
             emoji +
             "</text></svg>"
         )}`}
-        className="w-16 h-16 sm:w-14 sm:h-14 md:w-16 md:h-16"
+        className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16"
         alt="Topic Emoji"
       />
     </>

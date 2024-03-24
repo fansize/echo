@@ -62,22 +62,29 @@ export default function EpisodePage({ params }: Params) {
 
   // 根据 captionSrc 获取字幕
   useEffect(() => {
+    // 从本地上传获得的视频和字幕
     if (params.slug === "upload") {
       // If the slug is "upload", use the local video URL
-      const videoUrl = localStorage.getItem('uploadedVideoUrl');
-      const captionUrl = localStorage.getItem('uploadedCaptionUrl');
+      const videoUrl = localStorage.getItem("uploadedVideoUrl");
+      const captionUrl = localStorage.getItem("uploadedCaptionUrl");
       // console.log(videoUrl, captionUrl);
-      episode.videoSrc = videoUrl || '';
-      episode.captionSrc = captionUrl || '';
-      getCaptionByUrl(episode.captionSrc, episode.startIndex, episode.endIndex).then((captions) => {
+      episode.videoSrc = videoUrl || "";
+      episode.captionSrc = captionUrl || "";
+      episode.startIndex = undefined;
+      episode.endIndex = undefined;
+      getCaptionByUrl(episode.captionSrc).then((captions) => {
         setCaptions(captions);
         setSelectedCaption(captions[0]);
       });
     } else {
-      // Otherwise, get the episode from the server
+      // 从数据库获得的视频和字幕
       const episode = getEpisodeBySlug(params.slug);
       setEpisode(episode);
-      getCaptionByUrl(episode.captionSrc, episode.startIndex, episode.endIndex).then((captions) => {
+      getCaptionByUrl(
+        episode.captionSrc,
+        episode.startIndex,
+        episode.endIndex
+      ).then((captions) => {
         setCaptions(captions);
         setSelectedCaption(captions[0]);
       });
@@ -95,9 +102,9 @@ export default function EpisodePage({ params }: Params) {
         <div className="mt-4">
           <BackButton title={episode.title} />
         </div>
-        <div className="flex flex-col md:flex-row gap-4 mt-4">
-          <div className="flex flex-col p-4 md:p-8 h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-white dark:bg-black rounded-lg shadow-md">
-            {/* <TypeBar /> */}
+
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
+          <div className="hidden sm:flex flex-col p-4 md:p-8 h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg shadow-md">
             <CaptionPanel
               captions={captions}
               selectedCaption={selectedCaption}
@@ -105,7 +112,7 @@ export default function EpisodePage({ params }: Params) {
             />
           </div>
 
-          <div className="flex flex-col p-4 md:p-8 bg-white dark:bg-black rounded-lg md:w-2/3 shadow-md">
+          <div className="flex flex-col p-4 md:p-8 bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg md:w-2/3 shadow-md">
             <Video
               caption={selectedCaption}
               autoNextCaption={autoNextCaption}
@@ -113,6 +120,14 @@ export default function EpisodePage({ params }: Params) {
               uploadVideoUrl={episode?.videoSrc}
             />
           </div>
+        </div>
+
+        <div className="flex sm:hidden flex-col mt-6 p-4 h-[500px] bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg shadow-md">
+          <CaptionPanel
+            captions={captions}
+            selectedCaption={selectedCaption}
+            onPlayClick={handlePlayClick}
+          />
         </div>
       </Container>
     </main>

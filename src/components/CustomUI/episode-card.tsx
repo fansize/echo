@@ -12,12 +12,12 @@ type Props = {
 export function EpisodeCard({ slug, title, coverEmojis, tag, topic }: Props) {
   return (
     <div className="relative">
-      <div className="absolute px-8 py-10 right-0 bottom-0">
+      <div className="absolute px-8 py-6 md:py-10 right-0 bottom-0">
         <EmojiImage emoji={coverEmojis} />
       </div>
 
       <Link as={`/episodes/${slug}`} href="/episodes/[slug]" aria-label={title}>
-        <div className="flex flex-row p-8 overflow-hidden rounded-lg justify-start bg-indigo-900 text-white lg:aspect-none group-hover:opacity-75">
+        <div className="flex flex-row p-4 md:p-8 overflow-hidden rounded-lg justify-start bg-indigo-900 text-white lg:aspect-none group-hover:opacity-75">
           <div className="flex flex-col gap-3">
             <h3 className="text-2xl font-black tracking-wide line-clamp-1">
               {title}
