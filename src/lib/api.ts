@@ -27,7 +27,7 @@ export function getAllEpisodes(topic?: string): Episode[] {
   }
 
   episodes.sort((episode1, episode2) =>
-    episode1.title > episode2.title ? 1 : -1
+    episode1.slug > episode2.slug ? 1 : -1
   );
 
   return episodes;
