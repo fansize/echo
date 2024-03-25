@@ -20,13 +20,7 @@ export default function Nav() {
         <div className="flex items-center">
           <Link className=" mr-4 md:mr-8" href="/">
             <div className="flex flex-row items-center gap-2">
-              <Image
-                src={content_cn.logo}
-                className="text-white"
-                alt="logo"
-                width={40}
-                height={40}
-              />
+              <Image src={content_cn.logo} alt="logo" width={50} height={50} />
               <h2 className="text-lg md:text-xl font-semibold">
                 {content_cn.title}
               </h2>
