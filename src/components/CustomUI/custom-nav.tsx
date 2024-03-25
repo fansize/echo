@@ -16,7 +16,7 @@ const navLinks = [
 export default function Nav() {
   return (
     <nav className="px-8 backdrop-blur-md shadow-sm">
-      <div className="flex items-center justify-between h-16 mx-auto max-w-2xl md:max-w-7xl">
+      <div className="flex items-center justify-between h-20 mx-auto max-w-2xl md:max-w-7xl">
         <div className="flex items-center">
           <Link className=" mr-4 md:mr-8" href="/">
             <div className="flex flex-row items-center gap-2">

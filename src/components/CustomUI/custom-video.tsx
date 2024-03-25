@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Caption } from "@/interface/Caption";
+import { convertTimeToSeconds } from "@/lib/api";
 import PlayButton from "@/components/CustomUI/play-button";
 import StepBar from "@/components/CustomUI/step-bar";
 import SettingPanel from "@/components/CustomUI/setting-panel";
 import CaptionBlock from "@/components/CustomUI/caption-block";
+import Watermark from "@/components/CustomUI/watermark-tag";
 
 type Props = {
   caption?: Caption;
@@ -20,6 +22,9 @@ export default function Video({
   uploadVideoUrl,
   defaultPlay = true,
 }: Props) {
+  // 录制模式
+  const [recordMode, setRecordMode] = useState(false);
+
   const [stepNumber, setStepNumber] = useState(1);
   const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
@@ -189,6 +194,8 @@ export default function Video({
 
   return (
     <>
+      {recordMode && <Watermark />}
+
       <div className="relative rounded-xl overflow-hidden">
         <video
           ref={videoRef}
@@ -229,21 +236,14 @@ export default function Video({
       <div className="flex justify-center md:hidden">
         <StepBar stepNumber={stepNumber} />
       </div>
-      <SettingPanel
-        toggleSubtitle={toggleSubtitle}
-        toggleAutoNext={toggleAutoNext}
-        onClickSwitch={onClickSwitch}
-      />
+
+      {!recordMode && (
+        <SettingPanel
+          toggleSubtitle={toggleSubtitle}
+          toggleAutoNext={toggleAutoNext}
+          onClickSwitch={onClickSwitch}
+        />
+      )}
     </>
   );
-}
-
-// 将时间转换为秒
-function convertTimeToSeconds(time: string) {
-  const parts = time.split(":");
-  const hours = parseInt(parts[0], 10);
-  const minutes = parseInt(parts[1], 10);
-  const seconds = parseFloat(parts[2].replace(",", "."));
-
-  return hours * 3600 + minutes * 60 + seconds;
 }

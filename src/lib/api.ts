@@ -95,3 +95,13 @@ export async function getCaptionByUrl(
     reader.readAsText(blob);
   });
 }
+
+// 将时间转换为秒
+export function convertTimeToSeconds(time: string) {
+  const parts = time.split(":");
+  const hours = parseInt(parts[0], 10);
+  const minutes = parseInt(parts[1], 10);
+  const seconds = parseFloat(parts[2].replace(",", "."));
+
+  return hours * 3600 + minutes * 60 + seconds;
+}

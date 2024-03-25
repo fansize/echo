@@ -34,15 +34,18 @@ export default function CTA() {
           <Highlight key={index} text={step.text} />
         ))}
       </div>
-      <div className="mt-12 md:mt-16 flex items-center justify-center md:justify-start gap-x-6">
+      <div className="mt-12 md:mr-12 md:mt-12 flex items-center justify-center md:justify-start gap-x-6">
         <Link
           href="/episodes"
-          className="rounded-md bg-indigo-600 px-6 py-2.5 text-sm  font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          className="flex items-center justify-center rounded-md bg-indigo-600 w-2/3  py-5 text-base tracking-widest font-semibold text-white shadow-md hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
           {content_cn.getStarted}
         </Link>
-        <Link href="/wiki" className="text-sm font-semibold leading-6">
-          {content_cn.learnMore} <span aria-hidden="true">→</span>
+        <Link
+          href="/wiki"
+          className="flex items-center justify-center text-base w-1/4  py-5 rounded-md  dark:bg-slate-500/20 bg-neutral-300/20"
+        >
+          {content_cn.learnMore}
         </Link>
       </div>
     </div>

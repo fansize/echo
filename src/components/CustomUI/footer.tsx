@@ -15,7 +15,7 @@ export default function Footer() {
             href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts"
             className="mx-3  hover:bg-white hover:text-black border  font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
           >
-            Read Documentation
+            常见问题
           </Link>
         </div>
       </Container>
