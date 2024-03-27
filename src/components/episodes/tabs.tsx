@@ -11,10 +11,10 @@ export default function TopicTab({ onClick }: Props) {
   const oxford3000 = tags.oxford3000.topic;
 
   return (
-    <Tabs defaultValue={all}>
+    <Tabs defaultValue={daily}>
       <TabsList>
         <TabsTrigger value={all} onClick={() => onClick("")}>
-          {all}
+          全部
         </TabsTrigger>
 
         <TabsTrigger value={daily} onClick={() => onClick(daily)}>

@@ -6,9 +6,8 @@ import { Caption } from "@/interface/Caption";
 import Video from "@/components/CustomUI/custom-video";
 import CaptionPanel from "@/components/CustomUI/subtitle-panel";
 import Container from "@/components/CustomUI/container";
-import Background from "@/components/CustomUI/background";
 import BackButton from "@/components/CustomUI/back-button";
-import TypeBar from "@/components/CustomUI/type-bar";
+import TypeWriter from "@/components/episodes/type-writer";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
@@ -119,6 +118,8 @@ export default function EpisodePage({ params }: Params) {
               onClickSwitch={handleSwitchCaption}
               uploadVideoUrl={episode?.videoSrc}
             />
+
+            {selectedCaption && <TypeWriter targetContent={selectedCaption.text} />}
           </div>
         </div>
 
