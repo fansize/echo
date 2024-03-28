@@ -119,7 +119,7 @@ export default function EpisodePage({ params }: Params) {
               uploadVideoUrl={episode?.videoSrc}
             />
 
-            {selectedCaption && <TypeWriter targetContent={selectedCaption.text} />}
+            {/* {selectedCaption && <TypeWriter targetContent={selectedCaption.text} />} */}
           </div>
         </div>
 

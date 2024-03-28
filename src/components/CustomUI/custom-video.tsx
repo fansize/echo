@@ -193,7 +193,7 @@ export default function Video({
   }, [caption]);
 
   return (
-    <>
+    <div className={recordMode ? "bg-black p-8" : ""}>
       {recordMode && <Watermark />}
 
       <div className="relative rounded-xl overflow-hidden">
@@ -244,6 +244,6 @@ export default function Video({
           onClickSwitch={onClickSwitch}
         />
       )}
-    </>
+    </div>
   );
 }

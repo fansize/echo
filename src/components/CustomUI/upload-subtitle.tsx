@@ -77,7 +77,7 @@ export default function UploadPanel() {
         id="subtitle-upload"
         name="subtitle-upload"
         type="file"
-        accept=".srt,.vtt"
+        accept=".srt,.vtt,.ass"
         onChange={(event) => handleFileChange(event, 'subtitle')}
       />
 
