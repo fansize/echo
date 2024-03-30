@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getCaptionByUrl, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
+import { getCaptionByUrl, getCaptionBySlug, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
 import Video from "@/components/CustomUI/custom-video";
@@ -8,6 +8,7 @@ import CaptionPanel from "@/components/CustomUI/subtitle-panel";
 import Container from "@/components/CustomUI/container";
 import BackButton from "@/components/CustomUI/back-button";
 import TypeWriter from "@/components/episodes/type-writer";
+import YouTubeVideo from "@/components/CustomUI/custom-youtube-video";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
@@ -79,14 +80,27 @@ export default function EpisodePage({ params }: Params) {
       // 从数据库获得的视频和字幕
       const episode = getEpisodeBySlug(params.slug);
       setEpisode(episode);
-      getCaptionByUrl(
-        episode.captionSrc,
-        episode.startIndex,
-        episode.endIndex
-      ).then((captions) => {
-        setCaptions(captions);
-        setSelectedCaption(captions[0]);
-      });
+
+      // 如果episode是youtube视频，则通过youtube api获取字幕
+      if (episode.captionSrc === "") {
+        getCaptionBySlug(episode.slug)
+          .then((captions) => {
+            setCaptions(captions);
+          })
+          .catch((error) => {
+            console.error("Failed to get captions by slug:", error);
+            // 这里可以添加你的错误处理逻辑
+          });
+      } else {
+        getCaptionByUrl(
+          episode.captionSrc,
+          episode.startIndex,
+          episode.endIndex
+        ).then((captions) => {
+          setCaptions(captions);
+          setSelectedCaption(captions[0]);
+        });
+      }
     }
   }, [params.slug, episode]);
 
@@ -112,12 +126,21 @@ export default function EpisodePage({ params }: Params) {
           </div>
 
           <div className="flex flex-col p-4 md:p-8 bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg md:w-2/3 shadow-md">
-            <Video
-              caption={selectedCaption}
-              autoNextCaption={autoNextCaption}
-              onClickSwitch={handleSwitchCaption}
-              uploadVideoUrl={episode?.videoSrc}
-            />
+            {episode.captionSrc === "" ? (
+              <YouTubeVideo
+                caption={selectedCaption}
+                autoNextCaption={autoNextCaption}
+                onClickSwitch={handleSwitchCaption}
+                uploadVideoUrl={episode?.videoSrc}
+              />
+            ) : (
+              <Video
+                caption={selectedCaption}
+                autoNextCaption={autoNextCaption}
+                onClickSwitch={handleSwitchCaption}
+                uploadVideoUrl={episode?.videoSrc}
+              />
+            )}
 
             {/* {selectedCaption && <TypeWriter targetContent={selectedCaption.text} />} */}
           </div>

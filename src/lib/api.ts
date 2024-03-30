@@ -33,7 +33,38 @@ export function getAllEpisodes(topic?: string): Episode[] {
   return episodes;
 }
 
-// TODO: 无法直接获取本地同名字幕，可能需要通过 api 获取 Whisper 来实现
+// 通过 youtube api 地址获取视频 Caption
+export async function getCaptionBySlug(slug: string): Promise<Caption[]> {
+  const response = await fetch(`/api/transcript?url=${encodeURIComponent(slug)}`);
+  
+  if (!response.ok) {
+    throw new Error("Failed to fetch transcript");
+  }
+
+  const transcriptData: { text: string; duration: number; offset: number }[] = await response.json();
+  
+  const transcript: Caption[] = transcriptData.map((item, index) => ({
+    index: index + 1,
+    start: formatTime(item.offset),
+    end: formatTime(item.offset + item.duration),
+    text: item.text,
+  }));
+
+  return transcript;
+}
+
+// 将毫秒转换为时间格式
+function formatTime(ms: number): string {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+export function timeToMilliseconds(time: string): number {
+  const [minutes, seconds] = time.split(':').map(Number);
+  return (minutes * 60 + seconds) * 1000;
+}
 
 // 根据字幕地址获取字幕
 export async function getCaptionByUrl(
@@ -41,6 +72,19 @@ export async function getCaptionByUrl(
   startIndex?: number,
   endIndex?: number
 ): Promise<Caption[]> {
+  
+  // try {
+  //   const response = await fetch(captionSrc);
+  //   const blob = await response.blob();
+
+  //   if (!response.ok) {
+  //       throw new Error(`HTTP error! status: ${response.status}`);
+  //   }
+  // } catch (error) {
+  //   console.error('An error occurred while fetching the captions:', error);
+  //   // You can also handle the error in other ways, for example, show an error message to the user
+  // }
+
   const response = await fetch(captionSrc);
   const blob = await response.blob();
 

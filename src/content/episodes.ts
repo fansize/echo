@@ -198,4 +198,15 @@ export const mockEpisodes: Episode[] = [
     tag: "3:03",
     topic: tags.oxford3000.topic,
   },
+  {
+    slug: "YzIbLxApGpc",
+    title: "Let's talk about Money in English",
+    coverEmojis: tags.oxford3000.emoji,
+    videoSrc: "YzIbLxApGpc",
+    captionSrc: "",
+    startIndex: 1,
+    endIndex: 700,
+    tag: "3:03",
+    topic: "test",
+  },
 ];
