@@ -227,13 +227,14 @@ export default function Video({
           <div className="absolute flex-col bottom-5 px-2 inset-x-0 flex items-center justify-center">
             {isSubtitleVisible ? <CaptionBlock text={caption.text} /> : null}
 
-            <div className="hidden md:block">
+            {/* <div className="hidden md:block">
               <StepBar stepNumber={stepNumber} />
-            </div>
+            </div> */}
           </div>
         )}
       </div>
-      <div className="flex justify-center md:hidden">
+
+      <div className=" justify-center w-full">
         <StepBar stepNumber={stepNumber} />
       </div>
 
