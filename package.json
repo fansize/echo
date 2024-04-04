@@ -28,6 +28,7 @@
     "react-dom": "^18",
     "react-player": "^2.15.1",
     "react-youtube": "^10.1.0",
+    "sharp": "^0.33.3",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7",
     "youtube-transcript": "^1.1.0"

@@ -1,6 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getCaptionByUrl, getYoutubeCaptionBySlug, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
+import {
+  getCaptionByUrl,
+  getYoutubeCaptionBySlug,
+  getEpisodeBySlug,
+  getHeroEpisode,
+} from "@/lib/api";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
 import Video from "@/components/CustomUI/custom-video";
