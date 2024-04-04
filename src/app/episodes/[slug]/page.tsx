@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getCaptionByUrl, getCaptionBySlug, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
+import { getCaptionByUrl, getYoutubeCaptionBySlug, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
 import Video from "@/components/CustomUI/custom-video";
@@ -24,7 +24,7 @@ export default function EpisodePage({ params }: Params) {
   // 设定页面各种初始参数
   const [episode, setEpisode] = useState<Episode>(heroEpisode);
   const [captions, setCaptions] = useState<Caption[]>([]);
-  const [selectedCaption, setSelectedCaption] = useState<Caption>();
+  const [selectedCaption, setSelectedCaption] = useState<Caption>(captions[0]);
   const [autoNumber, setAutoNumber] = useState(0);
 
   // 点击某一条字幕
@@ -60,6 +60,12 @@ export default function EpisodePage({ params }: Params) {
     }
   };
 
+  useEffect(() => {
+    if (captions.length > 0) {
+      setSelectedCaption(captions[0]);
+    }
+  }, [captions]);
+
   // 根据 captionSrc 获取字幕
   useEffect(() => {
     // 从本地上传获得的视频和字幕
@@ -83,7 +89,7 @@ export default function EpisodePage({ params }: Params) {
 
       // 如果episode是youtube视频，则通过youtube api获取字幕
       if (episode.captionSrc === "") {
-        getCaptionBySlug(episode.slug)
+        getYoutubeCaptionBySlug(episode.slug)
           .then((captions) => {
             setCaptions(captions);
           })
