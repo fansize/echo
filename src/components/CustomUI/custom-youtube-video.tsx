@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import YouTube, { YouTubeProps, YouTubePlayer, YouTubeEvent } from 'react-youtube';
 import { Caption } from '@/interface/Caption';
 import { timeToMilliseconds } from '@/lib/api';
+import YouTube, { YouTubeProps, YouTubePlayer, YouTubeEvent } from 'react-youtube';
 
 type Props = {
-    caption?: Caption;
+    caption: Caption;
     autoNextCaption: () => void;
     onClickSwitch: (direction: "previous" | "next") => void;
     uploadVideoUrl: string;
@@ -17,19 +17,14 @@ export default function YouTubeVideo({
     onClickSwitch,
     uploadVideoUrl,
 }: Props) {
-    const [startNumber, setStartNumber] = useState(0);
-    const [endNumber, setEndNumber] = useState(0);
-    const [player, setPlayer] = useState<YouTubePlayer | null>(null);
-
-    const [shouldSeek, setShouldSeek] = useState(false);
-
+    // basic youtube props
     const opts: YouTubeProps['opts'] = {
         height: '390',
         width: '640',
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
-            // start: startNumber,
-            // end: endNumber,
+            // start: 600,
+            // end: 605,
             controls: 1,
             modestbranding: 1,
             rel: 0,
@@ -38,24 +33,33 @@ export default function YouTubeVideo({
         },
     };
 
-    const onReady = (event: any) => {
+    // let player: YouTubePlayer;
+
+    const onReady = (event: YouTubeEvent) => {
         const player = event.target;
-        setPlayer(player);
-        console.log('onReady:', player);
         player.playVideo();
     };
 
-    const onError = (error: any) => {
+    const onPlay = (event: YouTubeEvent) => {
+        const player = event.target;
+        player.seekTo(caption.start);
+        // opts.playerVars.start = caption.start;
+        // opts.playerVars.end = caption.end;
+        console.log('start:', opts.playerVars.start);
+        // player.playVideo();
+    };
+
+    const onError = (error: YouTubeEvent) => {
         console.error('YouTube Player Error:', error);
     };
 
-    useEffect(() => {
-        if (caption) {
-            setStartNumber(timeToMilliseconds(caption.start));
-            player.seekTo(startNumber / 1000, true);
-            console.log('seekTo:', startNumber / 1000);
-        }
-    }, [caption]);
+    // useEffect(() => {
+    //     if (caption) {
+    //         console.log('start:', caption.start);
+    //         opts.playerVars.start = caption.start;
+    //         // player.playVideo();
+    //     }
+    // }, [caption]);
 
     return (
         <div className='relative w-full pt-[56.25%]'>
@@ -63,8 +67,8 @@ export default function YouTubeVideo({
                 videoId={uploadVideoUrl}
                 opts={opts}
                 onReady={onReady}
+                onPlay={onPlay}
                 onError={onError}
-                // onStateChange={onStateChange}
                 iframeClassName='absolute inset-0 w-full h-full rounded-lg'
             />
         </div>

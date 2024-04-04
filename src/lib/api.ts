@@ -34,7 +34,7 @@ export function getAllEpisodes(topic?: string): Episode[] {
 }
 
 // 通过 youtube api 地址获取视频 Caption
-export async function getCaptionBySlug(slug: string): Promise<Caption[]> {
+export async function getYoutubeCaptionBySlug(slug: string): Promise<Caption[]> {
   const response = await fetch(`/api/transcript?url=${encodeURIComponent(slug)}`);
   
   if (!response.ok) {
@@ -45,9 +45,9 @@ export async function getCaptionBySlug(slug: string): Promise<Caption[]> {
   
   const transcript: Caption[] = transcriptData.map((item, index) => ({
     index: index + 1,
-    start: formatTime(item.offset),
-    end: formatTime(item.offset + item.duration),
     text: item.text,
+    start: (item.offset / 1000).toString(),
+    end: ((item.offset + item.duration) / 1000).toString(),
   }));
 
   return transcript;

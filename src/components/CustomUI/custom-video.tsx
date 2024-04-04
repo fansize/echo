@@ -24,7 +24,6 @@ export default function Video({
 }: Props) {
   // 录制模式
   const [recordMode, setRecordMode] = useState(false);
-
   const [stepNumber, setStepNumber] = useState(1);
   const [showVideo, setShowVideo] = useState(true);
   const [isSubtitleVisible, setSubtitleVisible] = useState(true);
