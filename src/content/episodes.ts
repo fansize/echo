@@ -202,7 +202,7 @@ export const mockEpisodes: Episode[] = [
     slug: "YzIbLxApGpc",
     title: "Let's talk about Money in English",
     coverEmojis: tags.oxford3000.emoji,
-    videoSrc: "YzIbLxApGpc",
+    videoSrc: "https://www.youtube.com/watch?v=YzIbLxApGpc",
     captionSrc: "",
     startIndex: 1,
     endIndex: 700,

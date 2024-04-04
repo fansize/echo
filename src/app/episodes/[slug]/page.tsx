@@ -9,6 +9,7 @@ import Container from "@/components/CustomUI/container";
 import BackButton from "@/components/CustomUI/back-button";
 import TypeWriter from "@/components/episodes/type-writer";
 import YouTubeVideo from "@/components/CustomUI/custom-youtube-video";
+import VideoComponent from "@/components/CustomUI/custom-video-new";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
@@ -133,7 +134,7 @@ export default function EpisodePage({ params }: Params) {
 
           <div className="flex flex-col p-4 md:p-8 bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg md:w-2/3 shadow-md">
             {episode.captionSrc === "" ? (
-              <YouTubeVideo
+              <VideoComponent
                 caption={selectedCaption}
                 autoNextCaption={autoNextCaption}
                 onClickSwitch={handleSwitchCaption}
