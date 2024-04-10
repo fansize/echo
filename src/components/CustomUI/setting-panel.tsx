@@ -1,4 +1,4 @@
-import { Eye, Languages, ListRestart, MoveLeft } from "lucide-react";
+import { Eye, Languages, ListRestart, Sparkles } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import {
   Pagination,
@@ -13,12 +13,14 @@ import {
 type Props = {
   toggleSubtitle: () => void;
   toggleAutoNext: () => void;
+  toggleRecordMode: () => void;
   onClickSwitch: (direction: "previous" | "next") => void;
 };
 
 export default function SettingPanel({
   toggleSubtitle,
   toggleAutoNext,
+  toggleRecordMode,
   onClickSwitch,
 }: Props) {
   return (
@@ -51,6 +53,15 @@ export default function SettingPanel({
           onClick={toggleAutoNext}
         >
           <ListRestart className="h-4 w-4" />
+        </Toggle>
+
+        <Toggle
+          variant={"outline"}
+          size={"sm"}
+          aria-label="Toggle bold"
+          onClick={toggleRecordMode}
+        >
+          <Sparkles className="h-4 w-4" />
         </Toggle>
 
         <PaginationItem>

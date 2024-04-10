@@ -32,6 +32,11 @@ export default function Video({
   // 视频引用
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // 切换录制模式
+  const toggleRecordMode = () => {
+    setRecordMode(!recordMode);
+  };
+
   // 隐藏或显示字幕
   const toggleSubtitle = () => {
     setSubtitleVisible(!isSubtitleVisible);
@@ -241,6 +246,7 @@ export default function Video({
         <SettingPanel
           toggleSubtitle={toggleSubtitle}
           toggleAutoNext={toggleAutoNext}
+          toggleRecordMode={toggleRecordMode}
           onClickSwitch={onClickSwitch}
         />
       )}
