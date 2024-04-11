@@ -3,4 +3,5 @@ export type Caption = {
   start: string;
   end: string;
   text: string;
+  level?: number;
 };

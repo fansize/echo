@@ -5,6 +5,8 @@ import { EpisodeCard } from "@/components/customUI/episode-card";
 import Container from "@/components/container/container";
 import TopicTab from "@/components/episodes/tabs";
 import AddEpisode from "@/components/episodes/add-episode";
+import Nav from "@/components/customUI/custom-nav";
+import Background from "@/components/container/background";
 
 export default function EpisodesPage() {
   const [topic, setTopic] = useState<string>("日常对话");
@@ -16,6 +18,8 @@ export default function EpisodesPage() {
 
   return (
     <main>
+      <Background />
+      <Nav />
       <Container>
         <div className="mx-auto max-w-2xl py-8 md:max-w-7xl">
           <div className="flex flex-row justify-between">

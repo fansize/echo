@@ -6,10 +6,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { QA_content_cn } from "@/content/QA-content";
+import Nav from "@/components/customUI/custom-nav";
 
 export default function WikiPage() {
   return (
     <main>
+      <Nav />
       <Container>
         <div className="mx-auto max-w-2xl py-4 md:max-w-5xl">
           {/* <h2 className="text-2xl font-semibold tracking-tight">常见问题</h2> */}

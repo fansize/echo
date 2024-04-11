@@ -4,8 +4,6 @@ import { Inter, Source_Sans_3, Noto_Sans_SC } from "next/font/google";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import Nav from "@/components/customUI/custom-nav";
-import Background from "@/components/container/background";
 
 // 定义网站字体
 const inter = Inter({ subsets: ["latin"] });
@@ -44,8 +42,6 @@ export default function RootLayout({
       <link rel="icon" type="image/png" sizes="32x32" href="/logo.svg" />
       <body className={`${notoSansSC.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system">
-          <Background />
-          <Nav />
           {children}
         </ThemeProvider>
         <Analytics />

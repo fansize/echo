@@ -15,6 +15,7 @@ import BackButton from "@/components/customUI/back-button";
 import TypeWriter from "@/components/episodes/type-writer";
 import YouTubeVideo from "@/components/sections/custom-youtube-video";
 import VideoComponent from "@/components/sections/custom-video-new";
+import PageNav from "@/components/episode/nav";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
@@ -123,13 +124,10 @@ export default function EpisodePage({ params }: Params) {
 
   return (
     <main>
+      <PageNav />
       <Container>
-        <div className="mt-4">
-          <BackButton title={episode.title} />
-        </div>
-
         <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <div className="hidden sm:flex flex-col p-4 md:p-8 h-[200px] md:w-1/3 md:h-[calc(100vh-10rem)] bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg shadow-md">
+          <div className="hidden sm:flex flex-col p-4 md:p-8  md:w-1/3 md:h-[calc(100vh-7rem)] bg-neutral-200/20 dark:dark:bg-slate-500/20 rounded-lg shadow-md">
             <CaptionPanel
               captions={captions}
               selectedCaption={selectedCaption}
