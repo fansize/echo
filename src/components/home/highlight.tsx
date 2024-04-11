@@ -1,4 +1,4 @@
-import Kbd from "@/components/CustomUI/kdb";
+import Kbd from "@/components/customUI/kdb";
 
 type Props = {
   text: string;

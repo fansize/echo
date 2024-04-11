@@ -1,5 +1,5 @@
 import Link from "next/link";
-import EmojiImage from "@/components/CustomUI/emoji-image";
+import EmojiImage from "@/components/customUI/emoji-image";
 
 type Props = {
   slug: string;

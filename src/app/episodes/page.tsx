@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import { getAllEpisodes } from "@/lib/api";
-import { EpisodeCard } from "@/components/CustomUI/episode-card";
-import Container from "@/components/CustomUI/container";
+import { EpisodeCard } from "@/components/customUI/episode-card";
+import Container from "@/components/container/container";
 import TopicTab from "@/components/episodes/tabs";
 import AddEpisode from "@/components/episodes/add-episode";
 

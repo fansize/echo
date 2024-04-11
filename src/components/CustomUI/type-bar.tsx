@@ -1,4 +1,4 @@
-import Tag from "@/components/CustomUI/custom-tag";
+import Tag from "@/components/customUI/custom-tag";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 

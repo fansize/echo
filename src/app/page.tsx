@@ -1,7 +1,7 @@
-import Container from "@/components/CustomUI/container";
+import Container from "@/components/container/container";
 import FeatureSection from "@/components/home/feature-section";
 import Recommendation from "@/components/home/recommendation-section";
-import Footer from "@/components/CustomUI/footer";
+import Footer from "@/components/customUI/footer";
 import CTASection from "@/components/home/cta-section";
 
 export default function Home() {

@@ -1,5 +1,5 @@
-import StepButton from "@/components/CustomUI/step-button";
-import TagAnimate from "@/components/CustomUI/tag-animation";
+import StepButton from "@/components/customUI/step-button";
+import TagAnimate from "@/components/customUI/tag-animation";
 
 type Props = {
   stepNumber: number;
@@ -18,9 +18,19 @@ export default function StepBar({ stepNumber }: Props) {
       {/* <TagAnimate stepNumber={stepNumber} /> */}
       {buttons.map((button) => (
         <div className="flex flex-auto" key={button.id}>
-          <div className={`flex relative flex-auto bg-amber-500 rounded-full  p-1 overflow-hidden`}>
-            <div className={`flex flex-auto rounded-full h-10 items-center justify-center  ${button.id === stepNumber ? 'animate-progress-extend bg-white' : ''}`}></div>
-            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 text-sm text-gray-800">{button.text}</span>
+          <div
+            className={`flex relative flex-auto bg-amber-500 rounded-full  p-1 overflow-hidden`}
+          >
+            <div
+              className={`flex flex-auto rounded-full h-10 items-center justify-center  ${
+                button.id === stepNumber
+                  ? "animate-progress-extend bg-white"
+                  : ""
+              }`}
+            ></div>
+            <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-1 text-sm text-gray-800">
+              {button.text}
+            </span>
           </div>
           {/* <TagAnimate
             text={button.text}

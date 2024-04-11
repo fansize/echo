@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Caption } from "@/interface/Caption";
 import { convertTimeToSeconds } from "@/lib/api";
-import PlayButton from "@/components/CustomUI/play-button";
-import StepBar from "@/components/CustomUI/step-bar";
-import SettingPanel from "@/components/CustomUI/setting-panel";
-import CaptionBlock from "@/components/CustomUI/caption-block";
-import Watermark from "@/components/CustomUI/watermark-tag";
+import PlayButton from "@/components/customUI/play-button";
+import StepBar from "@/components/customUI/step-bar";
+import SettingPanel from "@/components/customUI/setting-panel";
+import CaptionBlock from "@/components/customUI/caption-block";
+import Watermark from "@/components/customUI/watermark-tag";
 
 type Props = {
   caption?: Caption;

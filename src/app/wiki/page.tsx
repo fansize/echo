@@ -1,4 +1,4 @@
-import Container from "@/components/CustomUI/container";
+import Container from "@/components/container/container";
 import {
   Accordion,
   AccordionContent,

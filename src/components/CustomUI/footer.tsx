@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Container from "@/components/CustomUI/container";
+import Container from "@/components/container/container";
 
 export default function Footer() {
   return (

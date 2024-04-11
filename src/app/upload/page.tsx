@@ -1,5 +1,5 @@
-import Container from "@/components/CustomUI/container";
-import UploadPanel from "@/components/CustomUI/upload-subtitle";
+import Container from "@/components/container/container";
+import UploadPanel from "@/components/customUI/upload-subtitle";
 
 export default function UploadPage() {
   return (

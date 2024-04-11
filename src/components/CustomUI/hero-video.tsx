@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import { getCaptionByUrl, getEpisodeBySlug, getHeroEpisode } from "@/lib/api";
 import { Caption } from "@/interface/Caption";
-import Video from "@/components/CustomUI/custom-video";
-import CaptionPanel from "@/components/CustomUI/subtitle-panel";
-import Container from "@/components/CustomUI/container";
-import Background from "@/components/CustomUI/background";
-import BackButton from "@/components/CustomUI/back-button";
-import TypeBar from "@/components/CustomUI/type-bar";
+import Video from "@/components/sections/custom-video";
+import CaptionPanel from "@/components/sections/subtitle-panel";
+import Container from "@/components/container/container";
+import Background from "@/components/container/background";
+import BackButton from "@/components/customUI/back-button";
+import TypeBar from "@/components/customUI/type-bar";
 
 // 从父页面通过 Router URL 中获取 slug
 

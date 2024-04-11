@@ -8,13 +8,13 @@ import {
 } from "@/lib/api";
 import { Episode } from "@/interface/Episode";
 import { Caption } from "@/interface/Caption";
-import Video from "@/components/CustomUI/custom-video";
-import CaptionPanel from "@/components/CustomUI/subtitle-panel";
-import Container from "@/components/CustomUI/container";
-import BackButton from "@/components/CustomUI/back-button";
+import Video from "@/components/sections/custom-video";
+import CaptionPanel from "@/components/sections/subtitle-panel";
+import Container from "@/components/container/container";
+import BackButton from "@/components/customUI/back-button";
 import TypeWriter from "@/components/episodes/type-writer";
-import YouTubeVideo from "@/components/CustomUI/custom-youtube-video";
-import VideoComponent from "@/components/CustomUI/custom-video-new";
+import YouTubeVideo from "@/components/sections/custom-youtube-video";
+import VideoComponent from "@/components/sections/custom-video-new";
 
 // 从父页面通过 Router URL 中获取 slug
 type Params = {
