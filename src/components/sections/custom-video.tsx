@@ -239,7 +239,7 @@ export default function Video({
       </div>
 
       <div className=" justify-center w-full">
-        <StepBar stepNumber={stepNumber} />
+        <StepBar stepNumber={stepNumber} selectedCaption={caption} />
       </div>
 
       {!recordMode && (
