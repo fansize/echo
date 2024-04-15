@@ -3,10 +3,10 @@ import { useState } from "react";
 import { getAllEpisodes } from "@/lib/api";
 import { EpisodeCard } from "@/components/customUI/episode-card";
 import Container from "@/components/container/container";
+import Background from "@/components/container/background";
 import TopicTab from "@/components/episodes/tabs";
 import AddEpisode from "@/components/episodes/add-episode";
-import Nav from "@/components/customUI/custom-nav";
-import Background from "@/components/container/background";
+import Nav from "@/components/container/nav";
 
 export default function EpisodesPage() {
   const [topic, setTopic] = useState<string>("日常对话");

@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { Caption } from "@/interface/Caption";
-import { timeToMilliseconds } from "@/lib/api";
 import YouTube, {
   YouTubeProps,
   YouTubePlayer,

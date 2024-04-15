@@ -5,7 +5,7 @@ import PlayButton from "@/components/customUI/play-button";
 import StepBar from "@/components/customUI/step-bar";
 import SettingPanel from "@/components/customUI/setting-panel";
 import CaptionBlock from "@/components/customUI/caption-block";
-import Watermark from "@/components/customUI/watermark-tag";
+import Watermark from "@/components/container/watermark";
 
 type Props = {
   caption?: Caption;

@@ -1,5 +1,5 @@
 import CTA from "./cta";
-import HeroVideo from "../customUI/hero-video";
+import HeroVideo from "../sections/hero-video";
 
 export default function CTASection() {
   return (

@@ -1,9 +1,9 @@
 import Container from "@/components/container/container";
 import FeatureSection from "@/components/home/feature-section";
 import Recommendation from "@/components/home/recommendation-section";
-import Footer from "@/components/customUI/footer";
+import Footer from "@/components/container/footer";
 import CTASection from "@/components/home/cta-section";
-import Nav from "@/components/customUI/custom-nav";
+import Nav from "@/components/container/nav";
 import Background from "@/components/container/background";
 
 export default function Home() {

@@ -39,6 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="baidu-site-verification" content="codeva-eTgVIIFd2J" />
+      </head>
       <link rel="icon" type="image/png" sizes="32x32" href="/logo.svg" />
       <body className={`${notoSansSC.className}`}>
         <ThemeProvider attribute="class" defaultTheme="system">

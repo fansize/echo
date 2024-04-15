@@ -10,6 +10,7 @@ const content_cn = {
 const navLinks = [
   { href: "/", text: "首页" },
   { href: "/episodes", text: "语料" },
+  { href: "/", text: "学习方法" },
   { href: "/wiki", text: "常见问题" },
 ];
 

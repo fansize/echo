@@ -12,10 +12,10 @@ export default function Footer() {
           </div>
 
           <Link
-            href="https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts"
+            href="/"
             className="mx-3  hover:bg-white hover:text-black border  font-bold py-3 px-12 lg:px-8 duration-200 transition-colors mb-6 lg:mb-0"
           >
-            常见问题
+            学习方法
           </Link>
         </div>
       </Container>

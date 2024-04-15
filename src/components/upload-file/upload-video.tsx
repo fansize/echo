@@ -10,7 +10,7 @@ export default function UploadVideo() {
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
       const fileUrl = URL.createObjectURL(event.target.files[0]);
-      localStorage.setItem('uploadedVideoUrl', fileUrl);
+      localStorage.setItem("uploadedVideoUrl", fileUrl);
       // onFileSelected(fileUrl);
     }
   };

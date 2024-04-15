@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { QA_content_cn } from "@/content/QA-content";
-import Nav from "@/components/customUI/custom-nav";
+import Nav from "@/components/container/nav";
 
 export default function WikiPage() {
   return (
